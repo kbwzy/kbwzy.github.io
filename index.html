@@ -252,7 +252,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/29/big-data/" itemprop="url">big_data</a></h1>
+                <a class="post-title-link" href="/2019/07/29/big-data/" itemprop="url">Spark</a></h1>
         
 
         <div class="post-meta">
@@ -304,7 +304,7 @@
       
         
           
-            <h1 id="Windows下安装hadoop2-7-1"><a href="#Windows下安装hadoop2-7-1" class="headerlink" title="Windows下安装hadoop2.7.1"></a>Windows下安装hadoop2.7.1</h1><p>[Windows下安装hadoop2.7.1]<a href="https://blog.csdn.net/eagleuniversityeye/article/details/88908074" target="_blank" rel="noopener">https://blog.csdn.net/eagleuniversityeye/article/details/88908074</a></p>
+            <h2 id="Windows下安装hadoop2-7-1"><a href="#Windows下安装hadoop2-7-1" class="headerlink" title="Windows下安装hadoop2.7.1"></a>Windows下安装hadoop2.7.1</h2><p>[Windows下安装hadoop2.7.1]<a href="https://blog.csdn.net/eagleuniversityeye/article/details/88908074" target="_blank" rel="noopener">https://blog.csdn.net/eagleuniversityeye/article/details/88908074</a></p>
 <p>借助这个blog可以解决：Hadoop集群 启动了之后， ResourceManager未起来的问题</p>
 <p>1.安装前需要准备的文件<br>需要先去官网下载hadoop，但下载完的hadoop是不能直接在Windows上运行的，需要替换bin和etc两个文件夹，替换成专门为Windows下运行而编译的对应版本的bin和etc文件夹</p>
 <p>2.配置hadoop环境变量<br>java的环境变量配置我在这里就不多说了，说下hadoop环境变量配置<br>右键我的电脑-&gt;属性-&gt;左边任务栏 高级系统设置-&gt;环境变量<br>在系统变量里新建HADOOP_HOME，设置变量值为hadoop地址</p>
@@ -324,9 +324,137 @@
 <p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564770885189.png" alt="1564770885189"></p>
 <p>输入stop-all命令，即可关闭hadoop</p>
 <hr>
-<h1 id="Spark-RDD-amp-DataFrame"><a href="#Spark-RDD-amp-DataFrame" class="headerlink" title="Spark RDD &amp; DataFrame"></a>Spark RDD &amp; DataFrame</h1><h3 id="1-3-Spark-DataFrame-Exercise-Solution"><a href="#1-3-Spark-DataFrame-Exercise-Solution" class="headerlink" title="1.3.Spark_DataFrame_Exercise_Solution"></a>1.3.Spark_DataFrame_Exercise_Solution</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#初始化 Spark Session</span><br><span class="line">import findspark</span><br><span class="line">findspark.init()</span><br><span class="line">from pyspark.sql import SparkSession</span><br><span class="line">spark = SparkSession.Builder().appName(&apos;DataFram&apos;).getOrCreate()</span><br><span class="line">#初步认识数据</span><br><span class="line">df.printSchema()#输出字段名称</span><br><span class="line">df.show() # 输出spark DataFrame的表结构</span><br><span class="line">df.take(5) #取数据前5行</span><br><span class="line">desc = df.describe()</span><br><span class="line">desc.show() #描述字段统计信息</span><br><span class="line">#字符串格式化</span><br><span class="line">from pyspark.sql.functions import avg, format_number #</span><br><span class="line">desc.select(desc[&apos;summary&apos;], format_number(desc[&apos;Open&apos;].cast(&apos;float&apos;), 2).alias(&apos;Open&apos;), </span><br><span class="line">            format_number(desc[&apos;High&apos;].cast(&apos;float&apos;), 2).alias(&apos;High&apos;),</span><br><span class="line">            format_number(desc[&apos;Low&apos;].cast(&apos;float&apos;), 2).alias(&apos;Low&apos;), </span><br><span class="line">            format_number(desc[&apos;Close&apos;].cast(&apos;float&apos;), 2).alias(&apos;Close&apos;),</span><br><span class="line">            format_number(desc[&apos;Volume&apos;].cast(&apos;float&apos;), 2).alias(&apos;Adj Close&apos;)).show()</span><br><span class="line">#增加一列            </span><br><span class="line">df.withColumn(&apos;HV Ratio&apos;, df[&apos;High&apos;] / df[&apos;Volume&apos;]).select(&apos;HV Ratio&apos;).show()#withColum</span><br><span class="line">#选择数据，求最值</span><br><span class="line">from pyspark.sql.functions import min, max</span><br><span class="line">df.select(max(df[&apos;Volume&apos;]), min(df[&apos;Volume&apos;])).show()</span><br></pre></td></tr></table></figure>
+<h2 id="Spark-RDD-amp-DataFrame"><a href="#Spark-RDD-amp-DataFrame" class="headerlink" title="Spark RDD &amp; DataFrame"></a>Spark RDD &amp; DataFrame</h2><h3 id="1-Spark-DataFrame-Exercise-Solution"><a href="#1-Spark-DataFrame-Exercise-Solution" class="headerlink" title="1.Spark_DataFrame_Exercise_Solution"></a>1.Spark_DataFrame_Exercise_Solution</h3><h4 id="作业笔记"><a href="#作业笔记" class="headerlink" title="作业笔记"></a>作业笔记</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#初始化 Spark Session</span><br><span class="line">import findspark</span><br><span class="line">findspark.init()</span><br><span class="line">from pyspark.sql import SparkSession</span><br><span class="line">spark = SparkSession.Builder().appName(&apos;DataFram&apos;).getOrCreate()</span><br><span class="line">#初步认识数据</span><br><span class="line">df.printSchema()#输出字段名称</span><br><span class="line">df.show() # 输出spark DataFrame的表结构</span><br><span class="line">df.take(5) #取数据前5行</span><br><span class="line">desc = df.describe()</span><br><span class="line">desc.show() #描述字段统计信息</span><br><span class="line">#字符串格式化</span><br><span class="line">from pyspark.sql.functions import avg, format_number #</span><br><span class="line">desc.select(desc[&apos;summary&apos;], format_number(desc[&apos;Open&apos;].cast(&apos;float&apos;), 2).alias(&apos;Open&apos;), </span><br><span class="line">            format_number(desc[&apos;High&apos;].cast(&apos;float&apos;), 2).alias(&apos;High&apos;),</span><br><span class="line">            format_number(desc[&apos;Low&apos;].cast(&apos;float&apos;), 2).alias(&apos;Low&apos;), </span><br><span class="line">            format_number(desc[&apos;Close&apos;].cast(&apos;float&apos;), 2).alias(&apos;Close&apos;),</span><br><span class="line">            format_number(desc[&apos;Volume&apos;].cast(&apos;float&apos;), 2).alias(&apos;Adj Close&apos;)).show()</span><br><span class="line">#增加一列            </span><br><span class="line">df.withColumn(&apos;HV Ratio&apos;, df[&apos;High&apos;] / df[&apos;Volume&apos;]).select(&apos;HV Ratio&apos;).show()#withColum</span><br><span class="line">#选择数据，求最值</span><br><span class="line">from pyspark.sql.functions import min, max</span><br><span class="line">df.select(max(df[&apos;Volume&apos;]), min(df[&apos;Volume&apos;])).show()</span><br></pre></td></tr></table></figure>
 
-<p>[年的取法可以参考] (<a href="https://stackoverflow.com/questions/30949202/spark-dataframe-timestamptype-how-to-get-year-month-day-values-from-field" target="_blank" rel="noopener">https://stackoverflow.com/questions/30949202/spark-dataframe-timestamptype-how-to-get-year-month-day-values-from-field</a>)</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://stackoverflow.com/questions/30949202/spark-dataframe-timestamptype-how-to-get-year-month-day-values-from-field" target="_blank" rel="noopener">字符格式化的方法</a></p>
+<p><a href="https://stackoverflow.com/questions/30949202/spark-dataframe-timestamptype-how-to-get-year-month-day-values-from-field" target="_blank" rel="noopener">日期datetiime中month取法</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/29/Github Pages/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kbwzy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kbwzy的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/29/Github Pages/" itemprop="url">Hexo 搭建博客</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-29T17:03:37+08:00">
+                2019-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h3 id="本地调试"><a href="#本地调试" class="headerlink" title="本地调试"></a>本地调试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s --debug -p 5000</span><br></pre></td></tr></table></figure>
+
+<h3 id="博客同步"><a href="#博客同步" class="headerlink" title="博客同步"></a>博客同步</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<h3 id="新建博客文档"><a href="#新建博客文档" class="headerlink" title="新建博客文档"></a>新建博客文档</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post md_name</span><br></pre></td></tr></table></figure>
+
+<p>更多<a href="http://moxfive.xyz/2015/12/21/common-hexo-commands/" target="_blank" rel="noopener">hexo命令</a><br>更多内容参见<a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" target="_blank" rel="noopener">blog</a><br>对于markdown的使用可以参考这篇<a href="https://www.ofind.cn/blog/HEXO/HEXO下的Markdown语法(GFM)写博客.html" target="_blank" rel="noopener">blog</a></p>
+<hr>
 
           
         
@@ -654,7 +782,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
