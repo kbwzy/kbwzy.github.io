@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="个人笔记,">
+  <meta name="keywords" content="Interview,">
 
 
 
@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="前言本地调试1hexo s --debug -p 5000  博客同步123hexo cleanhexo ghexo d  新建博客文档1hexo new post md_name  更多hexo命令更多内容参见blog对于markdown的使用可以参考这篇blog">
-<meta name="keywords" content="个人笔记">
+<meta name="description" content="第一章 特征工程  ​    对于一个机器学习问题，数据和特征往往觉得了结果的上限，而模型算、算法的选择及优化则是逐步逼近这个上限，课件特征工程的重要性。 特征工程，对一组原始数据进行一系列工程处理，将其提炼为特征，作为输入供算法和模型使用。 两种数据结构    两种常见的数据结构  结构化数据 看作关系型数据库的一张表，每一列都有清晰的定义，包含数值型、类别性两种基本类型。   非结构化数据 包">
+<meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo 搭建博客">
-<meta property="og:url" content="http://yoursite.com/2019/07/29/github_ages/index.html">
+<meta property="og:title" content="百面机器学习笔记">
+<meta property="og:url" content="http://yoursite.com/2019/08/11/ML_interview/index.html">
 <meta property="og:site_name" content="kbwzy的博客">
-<meta property="og:description" content="前言本地调试1hexo s --debug -p 5000  博客同步123hexo cleanhexo ghexo d  新建博客文档1hexo new post md_name  更多hexo命令更多内容参见blog对于markdown的使用可以参考这篇blog">
+<meta property="og:description" content="第一章 特征工程  ​    对于一个机器学习问题，数据和特征往往觉得了结果的上限，而模型算、算法的选择及优化则是逐步逼近这个上限，课件特征工程的重要性。 特征工程，对一组原始数据进行一系列工程处理，将其提炼为特征，作为输入供算法和模型使用。 两种数据结构    两种常见的数据结构  结构化数据 看作关系型数据库的一张表，每一列都有清晰的定义，包含数值型、类别性两种基本类型。   非结构化数据 包">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-03T05:59:11.597Z">
+<meta property="og:image" content="http://yoursite.com/2019/08/11/ML_interview/2019-08-10_163234.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/11/ML_interview/2019-08-10_163247.png">
+<meta property="og:updated_time" content="2019-08-11T07:43:32.642Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo 搭建博客">
-<meta name="twitter:description" content="前言本地调试1hexo s --debug -p 5000  博客同步123hexo cleanhexo ghexo d  新建博客文档1hexo new post md_name  更多hexo命令更多内容参见blog对于markdown的使用可以参考这篇blog">
+<meta name="twitter:title" content="百面机器学习笔记">
+<meta name="twitter:description" content="第一章 特征工程  ​    对于一个机器学习问题，数据和特征往往觉得了结果的上限，而模型算、算法的选择及优化则是逐步逼近这个上限，课件特征工程的重要性。 特征工程，对一组原始数据进行一系列工程处理，将其提炼为特征，作为输入供算法和模型使用。 两种数据结构    两种常见的数据结构  结构化数据 看作关系型数据库的一张表，每一列都有清晰的定义，包含数值型、类别性两种基本类型。   非结构化数据 包">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/11/ML_interview/2019-08-10_163234.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/29/github_ages/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/11/ML_interview/">
 
 
 
 
 
-  <title>Hexo 搭建博客 | kbwzy的博客</title>
+  <title>百面机器学习笔记 | kbwzy的博客</title>
   
 
 
@@ -233,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/29/github_ages/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/11/ML_interview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="kbwzy">
@@ -250,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hexo 搭建博客</h1>
+          <h1 class="post-title" itemprop="name headline">百面机器学习笔记</h1>
         
 
         <div class="post-meta">
@@ -262,8 +265,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-29T17:03:37+08:00">
-                2019-07-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-11T15:39:33+08:00">
+                2019-08-11
               </time>
             
 
@@ -300,14 +303,34 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h3 id="本地调试"><a href="#本地调试" class="headerlink" title="本地调试"></a>本地调试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s --debug -p 5000</span><br></pre></td></tr></table></figure>
-
-<h3 id="博客同步"><a href="#博客同步" class="headerlink" title="博客同步"></a>博客同步</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<h3 id="新建博客文档"><a href="#新建博客文档" class="headerlink" title="新建博客文档"></a>新建博客文档</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post md_name</span><br></pre></td></tr></table></figure>
-
-<p>更多<a href="http://moxfive.xyz/2015/12/21/common-hexo-commands/" target="_blank" rel="noopener">hexo命令</a><br>更多内容参见<a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" target="_blank" rel="noopener">blog</a><br>对于markdown的使用可以参考这篇<a href="https://www.ofind.cn/blog/HEXO/HEXO下的Markdown语法(GFM)写博客.html" target="_blank" rel="noopener">blog</a></p>
-<hr>
+        <p>第一章 特征工程</p>
+<ol>
+<li><p>​    对于一个机器学习问题，数据和特征往往觉得了结果的上限，而模型算、算法的选择及优化则是逐步逼近这个上限，课件特征工程的重要性。</p>
+<p>特征工程，对一组原始数据进行一系列工程处理，将其提炼为特征，作为输入供算法和模型使用。</p>
+<p>两种数据结构</p>
+</li>
+</ol>
+<ol start="2">
+<li><p>两种常见的数据结构</p>
+<ul>
+<li>结构化数据<ul>
+<li>看作关系型数据库的一张表，每一列都有清晰的定义，包含数值型、类别性两种基本类型。</li>
+</ul>
+</li>
+<li>非结构化数据<ul>
+<li>包括文本、图形、音频、视频，包含的信息无法用一个简单的数值表示，也没有清晰的定义，每一条的大小各不相同。</li>
+</ul>
+</li>
+</ul>
+<p>01 特征归一化</p>
+<p>为了消除数据特征之间的量纲影响，我们需要对特征进行归一化处理。使得不同的指标之间具有可比性。</p>
+<p>(1) 线性函数归一化($Min-Max Scaling$)。</p>
+<p>归一化公式为：</p>
+<p><img src="/2019/08/11/ML_interview/2019-08-10_163234.png" alt="1"></p>
+<p>(2) 零均值归一化($Z-Score Normalization$)。将原始数据映射到均值为0，标准差为1的分布。</p>
+<p><img src="/2019/08/11/ML_interview/2019-08-10_163247.png" alt="2"></p>
+</li>
+</ol>
 
       
     </div>
@@ -325,7 +348,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/个人笔记/" rel="tag"># 个人笔记</a>
+            <a href="/tags/Interview/" rel="tag"># Interview</a>
           
         </div>
       
@@ -338,15 +361,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/07/29/big_data/" rel="next" title="Spark">
+                <i class="fa fa-chevron-left"></i> Spark
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/29/big_data/" rel="prev" title="Spark">
-                Spark <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -398,17 +421,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -459,22 +473,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地调试"><span class="nav-number">1.0.1.</span> <span class="nav-text">本地调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#博客同步"><span class="nav-number">1.0.2.</span> <span class="nav-text">博客同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建博客文档"><span class="nav-number">1.0.3.</span> <span class="nav-text">新建博客文档</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
