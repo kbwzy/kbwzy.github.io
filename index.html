@@ -667,7 +667,10 @@
 <p>2.配置hadoop环境变量<br>java的环境变量配置我在这里就不多说了，说下hadoop环境变量配置<br>右键我的电脑-&gt;属性-&gt;左边任务栏 高级系统设置-&gt;环境变量<br>在系统变量里新建HADOOP_HOME，设置变量值为hadoop地址</p>
 <p>将HADOOP_HOME添加到PATH中，如下图所示</p>
 <p>3.修改hadoop配置<br>第一步：替换文件<br>将从官网下载的hadoop2.7.1中的bin和etc两个文件夹删除，使用hadooponwindows中的bin和etc代替</p>
-<p><img src="/.com//C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564771109398.png" alt="1564771109398"></p>
+
+
+
+
 <p>第二步：创建缺失的文件夹并将其配置到配置文件中<br>在hadoop根目录下创建两个文件夹data和tmp<br>在data文件夹下再创建连个子文件夹datanode和namenode</p>
 <p><img src="/.com//C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564771068330.png" alt="1564771068330"></p>
 <p>打开根目录下的etc/hadoop/hdfs-site.xml文件<br>修改dfs.namenode.name.dir和dfs.datanode.name.dir两个属性的值，改为刚刚创建的两个文件夹datanode和namenode的绝对路径（注意不能直接把在Windows下的路径复制粘贴，路径URL用的是斜杠不是反斜杠，而且前面还要加一个斜杠）然后保存退出</p>
