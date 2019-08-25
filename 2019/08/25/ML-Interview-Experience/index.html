@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Interview,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="第一章 特征工程  ​    对于一个机器学习问题，数据和特征往往觉得了结果的上限，而模型算、算法的选择及优化则是逐步逼近这个上限，课件特征工程的重要性。 特征工程，对一组原始数据进行一系列工程处理，将其提炼为特征，作为输入供算法和模型使用。 两种数据结构    两种常见的数据结构  结构化数据 看作关系型数据库的一张表，每一列都有清晰的定义，包含数值型、类别性两种基本类型。   非结构化数据 包">
-<meta name="keywords" content="Interview">
+<meta name="description" content="基础知识：常见算法的推导和特点、常见的特征提取方法、处理过拟合的方法、模型评估、模型集成、常见的网络结构、优化方法、梯度消失和爆炸都必须熟悉。这些都是课上讲到过的，只要多温习几遍也就熟悉了。如果有难点确实没理解的，可以拿时间专门攻克，这样可以增强信心。也可以直接请教别人。 项目方面：我写的是一个NLP项目和一个CTR预估的项目。CTR预估是用deep-cross网络。NLP项目现在的标配是Bert">
+<meta name="keywords" content="程序猿,编程,Spark,tensorflow,sk-learn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ML_Interview_100_times">
-<meta property="og:url" content="http://yoursite.com/2019/08/11/ML-Interview-100-times/index.html">
+<meta property="og:title" content="ML_Interview_Experience">
+<meta property="og:url" content="http://yoursite.com/2019/08/25/ML-Interview-Experience/index.html">
 <meta property="og:site_name" content="kbwzy的博客">
-<meta property="og:description" content="第一章 特征工程  ​    对于一个机器学习问题，数据和特征往往觉得了结果的上限，而模型算、算法的选择及优化则是逐步逼近这个上限，课件特征工程的重要性。 特征工程，对一组原始数据进行一系列工程处理，将其提炼为特征，作为输入供算法和模型使用。 两种数据结构    两种常见的数据结构  结构化数据 看作关系型数据库的一张表，每一列都有清晰的定义，包含数值型、类别性两种基本类型。   非结构化数据 包">
+<meta property="og:description" content="基础知识：常见算法的推导和特点、常见的特征提取方法、处理过拟合的方法、模型评估、模型集成、常见的网络结构、优化方法、梯度消失和爆炸都必须熟悉。这些都是课上讲到过的，只要多温习几遍也就熟悉了。如果有难点确实没理解的，可以拿时间专门攻克，这样可以增强信心。也可以直接请教别人。 项目方面：我写的是一个NLP项目和一个CTR预估的项目。CTR预估是用deep-cross网络。NLP项目现在的标配是Bert">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/08/11/ML-Interview-100-times/2019-08-10_163234.png">
-<meta property="og:image" content="http://yoursite.com/2019/08/11/ML-Interview-100-times/2019-08-10_163247.png">
-<meta property="og:updated_time" content="2019-08-11T07:49:03.655Z">
+<meta property="og:updated_time" content="2019-08-25T14:12:07.329Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ML_Interview_100_times">
-<meta name="twitter:description" content="第一章 特征工程  ​    对于一个机器学习问题，数据和特征往往觉得了结果的上限，而模型算、算法的选择及优化则是逐步逼近这个上限，课件特征工程的重要性。 特征工程，对一组原始数据进行一系列工程处理，将其提炼为特征，作为输入供算法和模型使用。 两种数据结构    两种常见的数据结构  结构化数据 看作关系型数据库的一张表，每一列都有清晰的定义，包含数值型、类别性两种基本类型。   非结构化数据 包">
-<meta name="twitter:image" content="http://yoursite.com/2019/08/11/ML-Interview-100-times/2019-08-10_163234.png">
+<meta name="twitter:title" content="ML_Interview_Experience">
+<meta name="twitter:description" content="基础知识：常见算法的推导和特点、常见的特征提取方法、处理过拟合的方法、模型评估、模型集成、常见的网络结构、优化方法、梯度消失和爆炸都必须熟悉。这些都是课上讲到过的，只要多温习几遍也就熟悉了。如果有难点确实没理解的，可以拿时间专门攻克，这样可以增强信心。也可以直接请教别人。 项目方面：我写的是一个NLP项目和一个CTR预估的项目。CTR预估是用deep-cross网络。NLP项目现在的标配是Bert">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/08/11/ML-Interview-100-times/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/25/ML-Interview-Experience/">
 
 
 
 
 
-  <title>ML_Interview_100_times | kbwzy的博客</title>
+  <title>ML_Interview_Experience | kbwzy的博客</title>
   
 
 
@@ -236,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/11/ML-Interview-100-times/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/25/ML-Interview-Experience/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="kbwzy">
@@ -253,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ML_Interview_100_times</h1>
+          <h1 class="post-title" itemprop="name headline">ML_Interview_Experience</h1>
         
 
         <div class="post-meta">
@@ -265,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-11T15:47:08+08:00">
-                2019-08-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-25T22:11:28+08:00">
+                2019-08-25
               </time>
             
 
@@ -303,34 +300,9 @@
       
 
       
-        <p>第一章 特征工程</p>
-<ol>
-<li><p>​    对于一个机器学习问题，数据和特征往往觉得了结果的上限，而模型算、算法的选择及优化则是逐步逼近这个上限，课件特征工程的重要性。</p>
-<p>特征工程，对一组原始数据进行一系列工程处理，将其提炼为特征，作为输入供算法和模型使用。</p>
-<p>两种数据结构</p>
-</li>
-</ol>
-<ol start="2">
-<li><p>两种常见的数据结构</p>
-<ul>
-<li>结构化数据<ul>
-<li>看作关系型数据库的一张表，每一列都有清晰的定义，包含数值型、类别性两种基本类型。</li>
-</ul>
-</li>
-<li>非结构化数据<ul>
-<li>包括文本、图形、音频、视频，包含的信息无法用一个简单的数值表示，也没有清晰的定义，每一条的大小各不相同。</li>
-</ul>
-</li>
-</ul>
-<p>01 特征归一化</p>
-<p>为了消除数据特征之间的量纲影响，我们需要对特征进行归一化处理。使得不同的指标之间具有可比性。</p>
-<p>(1) 线性函数归一化($Min-Max Scaling$)。</p>
-<p>归一化公式为：</p>
-<p><img src="/2019/08/11/ML-Interview-100-times/2019-08-10_163234.png" alt="1"></p>
-<p>(2) 零均值归一化($Z-Score Normalization$)。将原始数据映射到均值为0，标准差为1的分布。</p>
-<p><img src="/2019/08/11/ML-Interview-100-times/2019-08-10_163247.png" alt="2"></p>
-</li>
-</ol>
+        <h3 id="基础知识："><a href="#基础知识：" class="headerlink" title="基础知识："></a><strong>基础知识：</strong></h3><p>常见算法的推导和特点、常见的特征提取方法、处理过拟合的方法、模型评估、模型集成、常见的网络结构、优化方法、梯度消失和爆炸都必须熟悉。这些都是课上讲到过的，只要多温习几遍也就熟悉了。如果有难点确实没理解的，可以拿时间专门攻克，这样可以增强信心。也可以直接请教别人。</p>
+<h3 id="项目方面："><a href="#项目方面：" class="headerlink" title="项目方面："></a><strong>项目方面：</strong></h3><p>我写的是一个NLP项目和一个CTR预估的项目。<br>CTR预估是用deep-cross网络。<br>NLP项目现在的标配是Bert的fine-tune，但也不能只会bert微调。基本的CRF、LSTM、CNN都要掌握。NLP主要就是表示、标注和分类。<br>项目经验少没关系，只要有一两个就可以。因为AI总共才火几年，你又不是专门研究的博士，也不可能多。重要的是理解算法原理和思想，能够将现实问题转化为机器学习的问题，不是编程经验。</p>
+<h3 id="注意知识的系统性和自己的优势"><a href="#注意知识的系统性和自己的优势" class="headerlink" title="注意知识的系统性和自己的优势"></a><strong>注意知识的系统性和自己的优势</strong></h3><p>面试的时候，抓住自己熟悉的问题一定要说透，把相关的都说。这样也能把面试官的注意力吸引过来。同时占用了时间，被问到不熟悉领域的机会就少了。<br>比如问到xgboost，就从决策树（熵）到xgboost都说，同时还要说boost集成的方法，还可以扩展到其他的集成方法（bagging，stacking），还可以对比各种集成的特点，甚至还可以扩展到神经网络，因为神经网络也可以看作是一种集成。<br>比如问到词向量或嵌入，就从w2v，glove，elmo，到bert都说一遍。如果时间充裕，可以研究各种表示方法，很有意思的。<br>比如问到关键词提取，就把tf-idf，textrank，lda，都说一遍。如果还知道其他的关键词提取方法就更好。<br>总之，要让面试官看到你是系统的理解和掌握了，不是零碎的知识。  </p>
 
       
     </div>
@@ -346,12 +318,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Interview/" rel="tag"># Interview</a>
-          
-        </div>
-      
 
       
       
@@ -361,8 +327,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/29/big_data/" rel="next" title="Spark">
-                <i class="fa fa-chevron-left"></i> Spark
+              <a href="/2019/08/25/ML-Modeling/" rel="next" title="ML_Modeling">
+                <i class="fa fa-chevron-left"></i> ML_Modeling
               </a>
             
           </div>
@@ -370,10 +336,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/25/ML-Modeling/" rel="prev" title="ML_Modeling">
-                ML_Modeling <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -425,8 +387,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -477,6 +448,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识："><span class="nav-number">1.</span> <span class="nav-text">基础知识：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目方面："><span class="nav-number">2.</span> <span class="nav-text">项目方面：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意知识的系统性和自己的优势"><span class="nav-number">3.</span> <span class="nav-text">注意知识的系统性和自己的优势</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
