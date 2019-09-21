@@ -233,6 +233,278 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/21/chanese-text-analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kbwzy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kbwzy的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/21/chanese-text-analysis/" itemprop="url">chanese_text_analysis</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-21T23:27:04+08:00">
+                2019-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="中文文本分类方法"><a href="#中文文本分类方法" class="headerlink" title="中文文本分类方法"></a>中文文本分类方法</h2><h3 id="文本分类-文本表示-分类模型¶"><a href="#文本分类-文本表示-分类模型¶" class="headerlink" title="文本分类 = 文本表示 + 分类模型¶"></a>文本分类 = 文本表示 + 分类模型<a href="http://localhost:8888/notebooks/notebook/Part2/Prj2/News-Classifier-Machine-Learning-and-Deep-Learning/3.chinese_text_classifier.ipynb#文本分类-=-文本表示-+-分类模型" target="_blank" rel="noopener">¶</a></h3><h4 id="文本表示：BOW-N-gram-TF-IDF-word2vec-word-embedding-ELMo"><a href="#文本表示：BOW-N-gram-TF-IDF-word2vec-word-embedding-ELMo" class="headerlink" title="文本表示：BOW/N-gram/TF-IDF/word2vec/word embedding/ELMo"></a>文本表示：BOW/N-gram/TF-IDF/word2vec/word embedding/ELMo</h4><p><strong>词袋模型（中文）</strong>：</p>
+<p>①分词：<br>第1句话：[w1 w3 w5 w2 w1…]<br>第2句话：[w11 w32 w51 w21 w15…]<br>第3句话…<br>…</p>
+<ul>
+<li>载入jieba库，使用jieba.lcut进行分词</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">df = pd.read_csv(<span class="string">"./origin_data/entertainment_news.csv"</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">df = df.dropna()</span><br><span class="line">content=df[<span class="string">"content"</span>].values.tolist()</span><br><span class="line">segment=[]</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> content:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        segs=jieba.lcut(line)</span><br><span class="line">        <span class="keyword">for</span> seg <span class="keyword">in</span> segs:</span><br><span class="line">            <span class="keyword">if</span> len(seg)&gt;<span class="number">1</span> <span class="keyword">and</span> seg!=<span class="string">'\r\n'</span>:</span><br><span class="line">                segment.append(seg)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        print(line)</span><br><span class="line">        <span class="keyword">continue</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>去停用词</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">words_df=pd.DataFrame(&#123;<span class="string">'segment'</span>:segment&#125;)</span><br><span class="line"><span class="comment">#words_df.head()</span></span><br><span class="line">stopwords=pd.read_csv(<span class="string">"origin_data/stopwords.txt"</span>,index_col=<span class="literal">False</span>,quoting=<span class="number">3</span>,sep=<span class="string">"\t"</span>,names=[<span class="string">'stopword'</span>], encoding=<span class="string">'utf-8'</span>)<span class="comment">#quoting=3全不引用</span></span><br><span class="line"><span class="comment">#stopwords.head()</span></span><br><span class="line">words_df=words_df[~words_df.segment.isin(stopwords.stopword)]</span><br></pre></td></tr></table></figure>
+
+<p>②统计词频：<br>w3 count3<br>w7 count7<br>wi count_i<br>…</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">words_stat=words_df.groupby(by=[<span class="string">'segment'</span>])[<span class="string">'segment'</span>].agg(&#123;<span class="string">"计数"</span>:numpy.size&#125;)</span><br><span class="line">words_stat=words_stat.reset_index().sort_values(by=[<span class="string">"计数"</span>],ascending=<span class="literal">False</span>)</span><br><span class="line">words_stat.head()</span><br></pre></td></tr></table></figure>
+
+<p>③构建词典：<br>选出频次最高的N个词<br>开[1*n]这样的向量空间<br>（每个位置是哪个词）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dictionary = corpora.Dictionary(sentences) #创建字典</span><br><span class="line">corpus = [dictionary.doc2bow(sentence) for sentence in sentences]#创建语料库</span><br></pre></td></tr></table></figure>
+
+<p>④映射：把每句话共构建的词典进行映射<br>第1句话：[1 0 1 0 1 0…]<br>第2句话：[0 0 0 0 0 0…1, 0…1,0…]</p>
+<p>⑤提升信息的表达充分度：</p>
+<ul>
+<li><p>把是否出现替换成频次</p>
+</li>
+<li><p>不只记录每个词，我还记录连续的n-gram</p>
+<ul>
+<li>“李雷喜欢韩梅梅” =&gt; (“李雷”,”喜欢”,”韩梅梅”)</li>
+<li>“韩梅梅喜欢李雷” =&gt; (“李雷”,”喜欢”,”韩梅梅”)</li>
+<li>“李雷喜欢韩梅梅” =&gt; (“李雷”,”喜欢”,”韩梅梅”,”李雷喜欢”, “喜欢韩梅梅”)</li>
+<li>“韩梅梅喜欢李雷” =&gt; (“李雷”,”喜欢”,”韩梅梅”,”韩梅梅喜欢”,”喜欢李雷”)</li>
+</ul>
+</li>
+<li><p>不只是使用频次信息，需要知道词对于句子的重要度</p>
+<ul>
+<li><p>TF-IDF = TF(term frequency) + IDF(inverse document frequency)</p>
+<p>​    import jieba.analyse</p>
+<ul>
+<li><p>jieba.analyse.extract_tags(sentence, topK=20, withWeight=False, allowPOS=())</p>
+<ul>
+<li>sentence 为待提取的文本</li>
+<li>topK 为返回几个 TF/IDF 权重最大的关键词，默认值为 20</li>
+<li>withWeight 为是否一并返回关键词权重值，默认值为 False</li>
+<li>allowPOS 仅包括指定词性的词，默认值为空，即不筛选</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba.analyse <span class="keyword">as</span> analyse</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df = pd.read_csv(<span class="string">"./origin_data/technology_news.csv"</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">df = df.dropna()</span><br><span class="line">lines=df.content.values.tolist()</span><br><span class="line">content = <span class="string">""</span>.join(lines)</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"  "</span>.join(analyse.extract_tags(content, topK=<span class="number">30</span>, withWeight=<span class="literal">False</span>, allowPOS=())))</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>⑥上述的表达都是独立表达（没有词和词在含义空间的分布）<br>喜欢 = 在乎 = “稀罕” = “中意”</p>
+<ul>
+<li>word-net （把词汇根据关系构建一张网：近义词、反义词、上位词、下位词…）<ul>
+<li>怎么更新？</li>
+<li>个体差异？</li>
+</ul>
+</li>
+<li>希望能够基于海量数据的分布去学习到一种表示<ul>
+<li>nnlm =&gt; 词向量</li>
+<li>word2vec（周边词类似的这样一些词，是可以互相替换，相同的语境）<ul>
+<li>捕捉的是相关的词，不是近义词<ul>
+<li>我 讨厌 你</li>
+<li>我 喜欢 你</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>word2vec优化…</li>
+<li>用监督学习去调整word2vec的结果(word embedding/词嵌入)</li>
+</ul>
+</li>
+<li>文本预处理<ul>
+<li>时态语态Normalize</li>
+<li>近义词替换</li>
+<li>stemming</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h4 id="分类模型：NB-LR-SVM-LSTM-GRU-CNN"><a href="#分类模型：NB-LR-SVM-LSTM-GRU-CNN" class="headerlink" title="分类模型：NB/LR/SVM/LSTM(GRU)/CNN"></a>分类模型：NB/LR/SVM/LSTM(GRU)/CNN</h4><p>语种判断：拉丁语系，字母组成的，甚至字母也一样 =&gt; 字母的使用(次序、频次)不一样</p>
+<p>对向量化的输入去做建模<br>①NB/LR/SVM…建模</p>
+<ul>
+<li>可以接受特别高维度的稀疏表示</li>
+</ul>
+<p>②MLP/CNN/LSTM</p>
+<ul>
+<li>不适合稀疏高维度数据输入 =&gt; word2vec</li>
+</ul>
+<h4 id="接下来以完成朴素贝叶斯中文分类器项目"><a href="#接下来以完成朴素贝叶斯中文分类器项目" class="headerlink" title="接下来以完成朴素贝叶斯中文分类器项目"></a>接下来以完成朴素贝叶斯中文分类器项目</h4><h5 id="数据介绍"><a href="#数据介绍" class="headerlink" title="数据介绍"></a>数据介绍</h5><p>选择科技、汽车、娱乐、军事、运动 总共5类文本数据进行处理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df_technology = pd.read_csv(<span class="string">"./origin_data/technology_news.csv"</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">df_technology = df_technology.dropna()</span><br><span class="line"></span><br><span class="line">df_car = pd.read_csv(<span class="string">"./origin_data/car_news.csv"</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">df_car = df_car.dropna()</span><br><span class="line"></span><br><span class="line">df_entertainment = pd.read_csv(<span class="string">"./origin_data/entertainment_news.csv"</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">df_entertainment = df_entertainment.dropna()</span><br><span class="line"></span><br><span class="line">df_military = pd.read_csv(<span class="string">"./origin_data/military_news.csv"</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">df_military = df_military.dropna()</span><br><span class="line"></span><br><span class="line">df_sports = pd.read_csv(<span class="string">"./origin_data/sports_news.csv"</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">df_sports = df_sports.dropna()</span><br><span class="line"></span><br><span class="line">technology = df_technology.content.values.tolist()[<span class="number">1000</span>:<span class="number">21000</span>]</span><br><span class="line">car = df_car.content.values.tolist()[<span class="number">1000</span>:<span class="number">21000</span>]</span><br><span class="line">entertainment = df_entertainment.content.values.tolist()[:<span class="number">20000</span>]</span><br><span class="line">military = df_military.content.values.tolist()[:<span class="number">20000</span>]</span><br><span class="line">sports = df_sports.content.values.tolist()[:<span class="number">20000</span>]</span><br></pre></td></tr></table></figure>
+
+<h5 id="数据分析与预处理"><a href="#数据分析与预处理" class="headerlink" title="数据分析与预处理"></a>数据分析与预处理</h5><ul>
+<li>读取停用词</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stopwords=pd.read_csv(<span class="string">"origin_data/stopwords.txt"</span>,index_col=<span class="literal">False</span>,quoting=<span class="number">3</span>,sep=<span class="string">"\t"</span>,names=[<span class="string">'stopword'</span>], encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">stopwords=stopwords[<span class="string">'stopword'</span>].values</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>除去停用词</p>
+<p>并且将处理后的数据放到新的文件夹，避免每次重复操作</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">preprocess_text</span><span class="params">(content_lines, sentences, category, target_path)</span>:</span></span><br><span class="line">    out_f = open(target_path+<span class="string">"/"</span>+category+<span class="string">".txt"</span>, <span class="string">'w'</span>)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> content_lines:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            segs=jieba.lcut(line)</span><br><span class="line">            segs = list(filter(<span class="keyword">lambda</span> x:len(x)&gt;<span class="number">1</span>, segs)) <span class="comment">#没有解析出来的新闻过滤掉</span></span><br><span class="line">            segs = list(filter(<span class="keyword">lambda</span> x:x <span class="keyword">not</span> <span class="keyword">in</span> stopwords, segs)) <span class="comment">#把停用词过滤掉</span></span><br><span class="line">            sentences.append((<span class="string">" "</span>.join(segs), category))</span><br><span class="line">            out_f.write(<span class="string">" "</span>.join(segs)+<span class="string">"\n"</span>)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            print(line)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">    out_f.close()</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成训练数据</span></span><br><span class="line">sentences = []</span><br><span class="line">preprocess_text(technology, sentences, <span class="string">'technology'</span>, <span class="string">'processed_data'</span>)</span><br><span class="line">preprocess_text(car, sentences, <span class="string">'car'</span>, <span class="string">'processed_data'</span>)</span><br><span class="line">preprocess_text(entertainment, sentences, <span class="string">'entertainment'</span>, <span class="string">'processed_data'</span>)</span><br><span class="line">preprocess_text(military, sentences, <span class="string">'military'</span>, <span class="string">'processed_data'</span>)</span><br><span class="line">preprocess_text(sports, sentences, <span class="string">'sports'</span>, <span class="string">'processed_data'</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>生成训练集和验证集</li>
+</ul>
+<p>先打乱下，生成更可靠的训练集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line">random.shuffle(sentences)</span><br></pre></td></tr></table></figure>
+
+<p>原数据集分词训练集和验证集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">x, y = zip(*sentences)</span><br><span class="line">x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=<span class="number">1234</span>)</span><br></pre></td></tr></table></figure>
+
+<p>下一步要做的就是在降噪数据上抽取出来有用的特征啦，我们对文本抽取词袋模型特征</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br><span class="line"></span><br><span class="line">vec = CountVectorizer(</span><br><span class="line">    analyzer=<span class="string">'word'</span>, <span class="comment"># tokenise by character ngrams</span></span><br><span class="line">    max_features=<span class="number">4000</span>,  <span class="comment"># keep the most common 4000 ngrams</span></span><br><span class="line">)</span><br><span class="line">vec.fit(x_train)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_features</span><span class="params">(x)</span>:</span></span><br><span class="line">    vec.transform(x)</span><br></pre></td></tr></table></figure>
+
+<p>把分类器import进来并且训练</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> MultinomialNB</span><br><span class="line">classifier = MultinomialNB()</span><br><span class="line">classifier.fit(vec.transform(x_train), y_train)</span><br></pre></td></tr></table></figure>
+
+<p>MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True)</p>
+<p>查看准确率</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">classifier.score(vec.transform(x_test), y_test)</span><br></pre></td></tr></table></figure>
+
+<p>.8318188045116215</p>
+<h5 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h5><p>我们可以看到在2w多个样本上，我们能在5个类别上达到83%的准确率。</p>
+<p>有没有办法把准确率提高一些呢？</p>
+<p>我们可以把特征做得更棒一点，比如说，我们试试加入抽取2-gram和3-gram的统计特征，比如可以把词库的量放大一点。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br><span class="line"></span><br><span class="line">vec = CountVectorizer(</span><br><span class="line">    analyzer=<span class="string">'word'</span>, <span class="comment"># tokenise by character ngrams</span></span><br><span class="line">    ngram_range=(<span class="number">1</span>,<span class="number">4</span>),  <span class="comment"># use ngrams of size 1, 2, 3, 4</span></span><br><span class="line">    max_features=<span class="number">20000</span>,  <span class="comment"># keep the most common 2000 ngrams</span></span><br><span class="line">)</span><br><span class="line">vec.fit(x_train)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_features</span><span class="params">(x)</span>:</span></span><br><span class="line">    vec.transform(x)</span><br></pre></td></tr></table></figure>
+
+<p>训练结果提升到0.8732818850175808</p>
+<h5 id="建模与优化对比"><a href="#建模与优化对比" class="headerlink" title="建模与优化对比"></a>建模与优化对比</h5><ul>
+<li>交叉验证</li>
+</ul>
+<p>更可靠的验证效果的方式是交叉验证，但是交叉验证最好保证每一份里面的样本类别也是相对均衡的，我们这里使用StratifiedKFold</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> StratifiedKFold</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, precision_score</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stratifiedkfold_cv</span><span class="params">(x, y, clf_class, shuffle=True, n_folds=<span class="number">5</span>, **kwargs)</span>:</span></span><br><span class="line">    stratifiedk_fold = StratifiedKFold(n_splits=n_folds, shuffle=shuffle)</span><br><span class="line">    y_pred = y[:]</span><br><span class="line">    <span class="keyword">for</span> train_index, test_index <span class="keyword">in</span> stratifiedk_fold.split(x, y):</span><br><span class="line">        X_train, X_test = x[train_index], x[test_index]</span><br><span class="line">        y_train = y[train_index]</span><br><span class="line">        clf = clf_class(**kwargs)</span><br><span class="line">        clf.fit(X_train,y_train)</span><br><span class="line">        y_pred[test_index] = clf.predict(X_test)</span><br><span class="line">    <span class="keyword">return</span> y_pred </span><br><span class="line"></span><br><span class="line">NB = MultinomialNB</span><br><span class="line">print(precision_score(y, stratifiedkfold_cv(vec.transform(x),np.array(y),NB), average=<span class="string">'macro'</span>))</span><br></pre></td></tr></table></figure>
+
+<p>0.8812996456456414</p>
+<ul>
+<li>换模型/特征试试</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line">svm = SVC(kernel=<span class="string">'linear'</span>)</span><br><span class="line">svm.fit(vec.transform(x_train), y_train)</span><br><span class="line">svm.score(vec.transform(x_test), y_test)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>rbf核</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.svm import SVC</span><br><span class="line">svm = SVC()</span><br><span class="line">svm.fit(vec.transform(x_train), y_train)</span><br><span class="line">svm.score(vec.transform(x_test), y_test)</span><br></pre></td></tr></table></figure>
+
+<h5 id="项目最终结果"><a href="#项目最终结果" class="headerlink" title="项目最终结果"></a>项目最终结果</h5><p>自定义类，以备后续使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> MultinomialNB</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextClassifier</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, classifier=MultinomialNB<span class="params">()</span>)</span>:</span></span><br><span class="line">        self.classifier = classifier</span><br><span class="line">        self.vectorizer = CountVectorizer(analyzer=<span class="string">'word'</span>, ngram_range=(<span class="number">1</span>,<span class="number">4</span>), max_features=<span class="number">20000</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">features</span><span class="params">(self, X)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.vectorizer.transform(X)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, X, y)</span>:</span></span><br><span class="line">        self.vectorizer.fit(X)</span><br><span class="line">        self.classifier.fit(self.features(X), y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.classifier.predict(self.features([x]))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self, X, y)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.classifier.score(self.features(X), y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">save_model</span><span class="params">(self, path)</span>:</span></span><br><span class="line">        dump((self.classifier, self.vectorizer), path)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load_model</span><span class="params">(self, path)</span>:</span></span><br><span class="line">        self.classifier, self.vectorizer = load(path)</span><br></pre></td></tr></table></figure>
+
+<p># </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/13/Pjt01-Language-detector/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1365,7 +1637,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
