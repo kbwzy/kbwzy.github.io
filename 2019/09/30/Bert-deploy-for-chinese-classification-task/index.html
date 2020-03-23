@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="nlp,Bert,">
 
 
 
@@ -79,17 +79,25 @@
 
 
 
-<meta name="keywords" content="程序猿,编程,Spark,tensorflow,sk-learn">
+<meta name="description" content="[转]简单高效的Bert中文文本分类模型开发和部署1.项目目录路径   src/bert是官方源码 data是数据，来自项目，文本的3分类问题 src/train.sh、classifier.py 训练文件    src/export.sh、src/export.py导出TF serving的模型    src/client.sh、src/client.py、src/file_base_clien">
+<meta name="keywords" content="nlp,Bert">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ML Learning Note">
-<meta property="og:url" content="http://yoursite.com/2019/08/31/ML-Learning-Note/index.html">
+<meta property="og:title" content="Bert_deploy_for_chinese_classification_task">
+<meta property="og:url" content="http://yoursite.com/2019/09/30/Bert-deploy-for-chinese-classification-task/index.html">
 <meta property="og:site_name" content="kbwzy的博客">
+<meta property="og:description" content="[转]简单高效的Bert中文文本分类模型开发和部署1.项目目录路径   src/bert是官方源码 data是数据，来自项目，文本的3分类问题 src/train.sh、classifier.py 训练文件    src/export.sh、src/export.py导出TF serving的模型    src/client.sh、src/client.py、src/file_base_clien">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/08/31/ML-Learning-Note/%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC9%E6%9C%9F%E5%85%A8.png">
-<meta property="og:updated_time" content="2019-08-31T13:08:18.602Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/30/Bert-deploy-for-chinese-classification-task/F:%5Clearn%5C02_blog%5Csource_posts%5CBert-deploy-for-chinese-classification-task%5C2019-09-30_090135.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/30/Bert-deploy-for-chinese-classification-task/F:%5Clearn%5C02_blog%5Csource_posts%5CBert-deploy-for-chinese-classification-task%5C2019-09-30_091045.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/30/Bert-deploy-for-chinese-classification-task/F:%5Clearn%5C02_blog%5Csource_posts%5CBert-deploy-for-chinese-classification-task%5C2019-09-30_091247.png">
+<meta property="og:image" content="https://camo.githubusercontent.com/3145a16c9f68ce2363f46c154540858fd87c6752/68747470733a2f2f73322e617831782e636f6d2f323031392f30352f32302f45764f3748482e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/a635f702b1d039c3ddfe5acb2eb19f930bac9ea0/68747470733a2f2f73322e617831782e636f6d2f323031392f30352f32302f45764f6f75442e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/b441591b5e8872985c24941e47c97b47cd15ba0d/68747470733a2f2f73322e617831782e636f6d2f323031392f30352f32302f45786b797a342e706e67">
+<meta property="og:updated_time" content="2019-09-30T01:37:39.797Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ML Learning Note">
-<meta name="twitter:image" content="http://yoursite.com/2019/08/31/ML-Learning-Note/%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC9%E6%9C%9F%E5%85%A8.png">
+<meta name="twitter:title" content="Bert_deploy_for_chinese_classification_task">
+<meta name="twitter:description" content="[转]简单高效的Bert中文文本分类模型开发和部署1.项目目录路径   src/bert是官方源码 data是数据，来自项目，文本的3分类问题 src/train.sh、classifier.py 训练文件    src/export.sh、src/export.py导出TF serving的模型    src/client.sh、src/client.py、src/file_base_clien">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/30/Bert-deploy-for-chinese-classification-task/F:%5Clearn%5C02_blog%5Csource_posts%5CBert-deploy-for-chinese-classification-task%5C2019-09-30_090135.png">
 
 
 
@@ -119,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/08/31/ML-Learning-Note/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/30/Bert-deploy-for-chinese-classification-task/">
 
 
 
 
 
-  <title>ML Learning Note | kbwzy的博客</title>
+  <title>Bert_deploy_for_chinese_classification_task | kbwzy的博客</title>
   
 
 
@@ -232,7 +240,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/31/ML-Learning-Note/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/30/Bert-deploy-for-chinese-classification-task/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="kbwzy">
@@ -249,7 +257,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ML Learning Note</h1>
+          <h1 class="post-title" itemprop="name headline">Bert_deploy_for_chinese_classification_task</h1>
         
 
         <div class="post-meta">
@@ -261,8 +269,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-31T21:02:58+08:00">
-                2019-08-31
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-30T08:54:26+08:00">
+                2019-09-30
               </time>
             
 
@@ -299,7 +307,32 @@
       
 
       
-        <p><img src="/2019/08/31/ML-Learning-Note/%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC9%E6%9C%9F%E5%85%A8.png" alt="七月在线机器学习"></p>
+        <h2 id="转-简单高效的Bert中文文本分类模型开发和部署"><a href="#转-简单高效的Bert中文文本分类模型开发和部署" class="headerlink" title="[转]简单高效的Bert中文文本分类模型开发和部署"></a><a href="https://github.com/SunYanCN/BERT-chinese-text-classification-and-deployment" target="_blank" rel="noopener">[转]简单高效的Bert中文文本分类模型开发和部署</a></h2><p>1.项目目录路径</p>
+<p><img src="/2019/09/30/Bert-deploy-for-chinese-classification-task/F:%5Clearn%5C02_blog%5Csource_posts%5CBert-deploy-for-chinese-classification-task%5C2019-09-30_090135.png" alt></p>
+<ul>
+<li>src/bert是官方<a href="https://github.com/google-research/bert" target="_blank" rel="noopener">源码</a></li>
+<li>data是数据，来自<a href="https://github.com/xmxoxo/BERT-train2deploy" target="_blank" rel="noopener">项目</a>，文本的3分类问题</li>
+<li>src/train.sh、classifier.py 训练文件</li>
+</ul>
+<p><img src="/2019/09/30/Bert-deploy-for-chinese-classification-task/F:%5Clearn%5C02_blog%5Csource_posts%5CBert-deploy-for-chinese-classification-task%5C2019-09-30_091045.png" alt="2019-09-30_091045.png"></p>
+<ul>
+<li>src/export.sh、src/export.py导出TF serving的模型</li>
+</ul>
+<p><img src="/2019/09/30/Bert-deploy-for-chinese-classification-task/F:%5Clearn%5C02_blog%5Csource_posts%5CBert-deploy-for-chinese-classification-task%5C2019-09-30_091247.png" alt="2019-09-30_091247.png"></p>
+<ul>
+<li><p>src/client.sh、src/client.py、src/file_base_client.py 处理输入数据并向部署的TF serving的模型发出请求，打印输出结果</p>
+<p>部署指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">simple_tensorflow_serving --model_base_path=&quot;./api&quot;</span><br></pre></td></tr></table></figure>
+
+<p>正常启动终端界面：</p>
+</li>
+</ul>
+<p>  <img src="https://camo.githubusercontent.com/3145a16c9f68ce2363f46c154540858fd87c6752/68747470733a2f2f73322e617831782e636f6d2f323031392f30352f32302f45764f3748482e706e67" alt="EvO7HH.png"></p>
+<p>   浏览器访问界面：</p>
+<p>  <img src="https://camo.githubusercontent.com/a635f702b1d039c3ddfe5acb2eb19f930bac9ea0/68747470733a2f2f73322e617831782e636f6d2f323031392f30352f32302f45764f6f75442e706e67" alt="EvOouD.png"></p>
+<h3 id="本地请求代码"><a href="#本地请求代码" class="headerlink" title="本地请求代码"></a>本地请求代码</h3><p>分为两种，一种是读取文件的，就是要预测的文本是tsv文件的，叫做file_base_client.py，另一个直接输入文本的是client.py。首先更改input_fn_builder，返回dataset，然后从dataset中取数据，转换为list格式，传入模型，返回结果。</p>
+<p>正常情况下的运行结果：</p>
+<p><img src="https://camo.githubusercontent.com/b441591b5e8872985c24941e47c97b47cd15ba0d/68747470733a2f2f73322e617831782e636f6d2f323031392f30352f32302f45786b797a342e706e67" alt="Exkyz4.png"></p>
 
       
     </div>
@@ -315,6 +348,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/nlp-Bert/" rel="tag"># nlp,Bert</a>
+          
+        </div>
+      
 
       
       
@@ -324,8 +363,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/25/ML-Interview-Experience/" rel="next" title="ML_Interview_Experience">
-                <i class="fa fa-chevron-left"></i> ML_Interview_Experience
+              <a href="/2019/09/21/chanese-text-analysis/" rel="next" title="chanese_text_analysis">
+                <i class="fa fa-chevron-left"></i> chanese_text_analysis
               </a>
             
           </div>
@@ -334,8 +373,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/07/NLP-CRF条件随机场模型/" rel="prev" title="NLP-CRF">
-                NLP-CRF <i class="fa fa-chevron-right"></i>
+              <a href="/2020/03/23/machine-learning-interview-Part1/" rel="prev" title="machine learning interview Part1">
+                machine learning interview Part1 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -388,8 +427,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -440,6 +488,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#转-简单高效的Bert中文文本分类模型开发和部署"><span class="nav-number">1.</span> <span class="nav-text">[转]简单高效的Bert中文文本分类模型开发和部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地请求代码"><span class="nav-number">1.1.</span> <span class="nav-text">本地请求代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

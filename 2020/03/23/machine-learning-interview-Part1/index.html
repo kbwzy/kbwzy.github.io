@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="machine learning,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Maching learning interview Part 1本人面试题汇总1.机器学习算法都用过哪些?2.说下决策树吧，节点划分有哪些方法，如何剪枝？(https://www.cnblogs.com/molieren/articles/10664954.html)  构造    构造就是生成一棵完整的决策树。简单来说，构造的过程就是选择什么属性作为节点的过程，那么在构造过程中，会存在三种节点">
+<meta name="keywords" content="machine learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="machine learning interview Part1">
+<meta property="og:url" content="http://yoursite.com/2020/03/23/machine-learning-interview-Part1/index.html">
+<meta property="og:site_name" content="kbwzy的博客">
+<meta property="og:description" content="Maching learning interview Part 1本人面试题汇总1.机器学习算法都用过哪些?2.说下决策树吧，节点划分有哪些方法，如何剪枝？(https://www.cnblogs.com/molieren/articles/10664954.html)  构造    构造就是生成一棵完整的决策树。简单来说，构造的过程就是选择什么属性作为节点的过程，那么在构造过程中，会存在三种节点">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-03-23T15:35:21.968Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="machine learning interview Part1">
+<meta name="twitter:description" content="Maching learning interview Part 1本人面试题汇总1.机器学习算法都用过哪些?2.说下决策树吧，节点划分有哪些方法，如何剪枝？(https://www.cnblogs.com/molieren/articles/10664954.html)  构造    构造就是生成一棵完整的决策树。简单来说，构造的过程就是选择什么属性作为节点的过程，那么在构造过程中，会存在三种节点">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/23/machine-learning-interview-Part1/">
+
+
+
+
+
+  <title>machine learning interview Part1 | kbwzy的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">kbwzy的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">向未来而生，拥抱人工智能</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/23/machine-learning-interview-Part1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kbwzy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kbwzy的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">machine learning interview Part1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-23T23:25:50+08:00">
+                2020-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Maching-learning-interview-Part-1"><a href="#Maching-learning-interview-Part-1" class="headerlink" title="Maching learning interview Part 1"></a>Maching learning interview Part 1</h1><p>本人面试题汇总<br>1.机器学习算法都用过哪些?<br>2.说下决策树吧，节点划分有哪些方法，如何剪枝？(<a href="https://www.cnblogs.com/molieren/articles/10664954.html" target="_blank" rel="noopener">https://www.cnblogs.com/molieren/articles/10664954.html</a>)<br>  构造<br>    构造就是生成一棵完整的决策树。简单来说，构造的过程就是选择什么属性作为节点的过程，那么在构造过程中，会存在三种节点：<br>    根节点：就是树的最顶端，最开始的那个节点。在上图中，“天气”就是一个根节点；<br>    内部节点：就是树中间的那些节点，比如说“温度”、“湿度”、“刮风”；<br>    叶节点：就是树最底部的节点，也就是决策结果。<br>    节点之间存在父子关系。比如根节点会有子节点，子节点会有子子节点，但是到了叶节点就停止了，叶节点不存在子节点。那么在构造过程中，你要解决三个重要的问题：<br>    选择哪个属性作为根节点；<br>    选择哪些属性作为子节点；<br>    什么时候停止并得到目标状态，即叶节点。<br>  剪枝<br>    剪枝就是给决策树瘦身，这一步想实现的目标就是，不需要太多的判断，同样可以得到不错的结果。之所以这么做，是为了防止“过拟合”（Overfitting）现象的发生。<br>    过拟合：指的是模型的训练结果“太好了”，以至于在实际应用的过程中，会存在“死板”的情况，导致分类错误。<br>    欠拟合：指的是模型的训练结果不理想。<br>    造成过拟合的原因：<br>      一是因为训练集中样本量较小。如果决策树选择的属性过多，构造出来的决策树一定能够“完美”地把训练集中的样本分类，但是这样就会把训练集中一些数据的特点当成所有数据的特点，但这个特点不一定是全部数据的特点，这就使得这个决策树在真实的数据分类中出现错误，也就是模型的“泛化能力”差。<br>  泛化能力：指的分类器是通过训练集抽象出来的分类能力，你也可以理解是举一反三的能力。如果我们太依赖于训练集的数据，那么得到的决策树容错率就会比较低，泛化能力差。因为训练集只是全部数据的抽样，并不能体现全部数据的特点。<br>  剪枝的方法：<br>    预剪枝：在决策树构造时就进行剪枝。方法是，在构造的过程中对节点进行评估，如果对某个节点进行划分，在验证集中不能带来准确性的提升，那么对这个节点进行划分就没有意义，这时就会把当前节点作为叶节点，不对其进行划分。<br>    后剪枝：在生成决策树之后再进行剪枝。通常会从决策树的叶节点开始，逐层向上对每个节点进行评估。如果剪掉这个节点子树，与保留该节点子树在分类准确性上差别不大，或者剪掉该节点子树，能在验证集中带来准确性的提升，那么就可以把该节点子树进行剪枝。方法是：用这个节点子树的叶子节点来替代该节点，类标记为这个节点子树中最频繁的那个类。<br>  在这里我们先介绍两个指标：纯度和信息熵。<br>  纯度：<br>    你可以把决策树的构造过程理解成为寻找纯净划分的过程。数学上，我们可以用纯度来表示，纯度换一种方式来解释就是让目标变量的分歧最小。<br>  信息熵：表示信息的不确定度<br>  从上面的计算结果中可以看出，信息熵越大，纯度越低。当集合中的所有样本均匀混合时，信息熵最大，纯度最低。<br>  我们在构造决策树的时候，会基于纯度来构建。而经典的 “不纯度”的指标有三种，分别是信息增益（ID3 算法）、信息增益率（C4.5 算法）以及基尼指数（Cart 算法）。<br>3.SVM了解吗？有什么优点？优化方法?(<a href="https://blog.csdn.net/DP323/article/details/80535863" target="_blank" rel="noopener">https://blog.csdn.net/DP323/article/details/80535863</a>  <a href="https://blog.csdn.net/weixin_37933986/article/details/70160591" target="_blank" rel="noopener">https://blog.csdn.net/weixin_37933986/article/details/70160591</a>)<br>  SVM有如下主要几个特点：<br>    (1)非线性映射是SVM方法的理论基础,SVM利用内积核函数代替向高维空间的非线性映射；<br>    (2)对特征空间划分的最优超平面是SVM的目标,最大化分类边际的思想是SVM方法的核心；<br>    (3)支持向量是SVM的训练结果,在SVM分类决策中起决定作用的是支持向量。<br>    (4)SVM 是一种有坚实理论基础的新颖的小样本学习方法。它基本上不涉及概率测度及大数定律等,因此不同于现有的统计方法。从本质上看,它避开了从归纳到演绎的传统过程,实现了高效的从训练样本到预报样本的“转导推理”,大大简化了通常的分类和回归等问题。<br>    (5)SVM 的最终决策函数只由少数的支持向量所确定,计算的复杂性取决于支持向量的数目,而不是样本空间的维数,这在某种意义上避免了“维数灾难”。<br>    (6)少数支持向量决定了最终结果,这不但可以帮助我们抓住关键样本、“剔除”大量冗余样本,而且注定了该方法不但算法简单,而且具有较好的“鲁棒”性。这种“鲁棒”性主要体现在:<br>        ①增、删非支持向量样本对模型没有影响;<br>        ②支持向量样本集具有一定的鲁棒性;<br>        ③有些成功的应用中,SVM 方法对核的选取不敏感<br>  两个不足：<br>    (1) SVM算法对大规模训练样本难以实施<br>    由于SVM是借助二次规划来求解支持向量，而求解二次规划将涉及m阶矩阵的计算（m为样本的个数），当m数目很大时该矩阵的存储和计算将耗费大量的机器内存和运算时间。针对以上问题的主要改进有有J.Platt的SMO算法、T.Joachims的SVM、C.J.C.Burges等的PCGC、张学工的CSVM以及O.L.Mangasarian等的SOR算法<br>    (2) 用SVM解决多分类问题存在困难<br>    经典的支持向量机算法只给出了二类分类的算法，而在数据挖掘的实际应用中，一般要解决多类的分类问题。可以通过多个二类支持向量机的组合来解决。主要有一对多组合模式、一对一组合模式和SVM决策树；再就是通过构造多个分类器的组合来解决。主要原理是克服SVM固有的缺点，结合其他算法的优势，解决多类问题的分类精度。如：与粗集理论结合，形成一种优势互补的多类问题的组合分类器。<br>4.Bagging和boosting?<br> Baggging 和Boosting都是模型融合的方法，可以将弱分类器融合之后形成一个强分类器，而且融合之后的效果会比最好的弱分类器更好。<br> Bagging:<br> 先介绍Bagging方法：<br> Boosting：<br>    AdaBoosting方式每次使用的是全部的样本，每轮训练改变样本的权重。下一轮训练的目标是找到一个函数f 来拟合上一轮的残差。当残差足够小或者达到设置的最大迭代次数则停止。Boosting会减小在上一轮训练正确的样本的权重，增大错误样本的权重。（对的残差小，错的残差大）<br>    梯度提升的Boosting方式是使用代价函数对上一轮训练出的模型函数f的偏导来拟合残差。<br> Bagging和Boosting的区别：<br>   1）样本选择上：<br>   Bagging：训练集是在原始集中有放回选取的，从原始集中选出的各轮训练集之间是独立的。<br>   Boosting：每一轮的训练集不变，只是训练集中每个样例在分类器中的权重发生变化。而权值是根据上一轮的分类结果进行调整。<br>   2）样例权重：<br>   Bagging：使用均匀取样，每个样例的权重相等<br>   Boosting：根据错误率不断调整样例的权值，错误率越大则权重越大。<br>   3）预测函数：<br>   Bagging：所有预测函数的权重相等。<br>   Boosting：每个弱分类器都有相应的权重，对于分类误差小的分类器会有更大的权重。<br>   4）并行计算：<br>   Bagging：各个预测函数可以并行生成<br>   Boosting：各个预测函数只能顺序生成，因为后一个模型参数需要前一轮模型的结果。<br>   5）这个很重要面试被问到了<br>   为什么说bagging是减少variance（方差），而boosting是减少bias（偏差）？<br>       Bagging对样本重采样，对每一重采样得到的子样本集训练一个模型，最后取平均。由于子样本集的相似性以及使用的是同种模型，因此各模型有近似相等的bias和variance（事实上，各模型的分布也近似相同，但不独立）。由于E[\frac{\sum X_i}{n}]=E[X_i]，所以bagging后的bias和单个子模型的接近，一般来说不能显著降低bias。另一方面，若各子模型独立，则有Var(\frac{\sum X_i}{n})=\frac{Var(X_i)}{n}，此时可以显著降低variance。若各子模型完全相同，则Var(\frac{\sum X_i}{n})=Var(X_i)</p>
+<pre><code>，此时不会降低variance。bagging方法得到的各子模型是有一定相关性的，属于上面两个极端状况的中间态，因此可以一定程度降低variance。为了进一步降低variance，Random forest通过随机选取变量子集做拟合的方式de-correlated了各子模型（树），使得variance进一步降低。
+
+（用公式可以一目了然：设有i.d.的n个随机变量，方差记为\sigma^2，两两变量之间的相关性为\rho，则\frac{\sum X_i}{n}的方差为\rho*\sigma^2+(1-\rho)*\sigma^2/n
+
+，bagging降低的是第二项，random forest是同时降低两项。详见ESL p588公式15.1）
+
+boosting从优化角度来看，是用forward-stagewise这种贪心法去最小化损失函数L(y, \sum_i a_i f_i(x))。例如，常见的AdaBoost即等价于用这种方法最小化exponential loss：L(y,f(x))=exp(-yf(x))。所谓forward-stagewise，就是在迭代的第n步，求解新的子模型f(x)及步长a（或者叫组合系数），来最小化L(y,f_{n-1}(x)+af(x))，这里f_{n-1}(x)
+
+是前n-1步得到的子模型的和。因此boosting是在sequential地最小化损失函数，其bias自然逐步下降。但由于是采取这种sequential、adaptive的策略，各子模型之间是强相关的，于是子模型之和并不能显著降低variance。所以说boosting主要还是靠降低bias来提升预测精度。</code></pre><p>5.BN了解吗？(<a href="https://blog.csdn.net/qq_25737169/article/details/79048516" target="_blank" rel="noopener">https://blog.csdn.net/qq_25737169/article/details/79048516</a> <a href="https://www.jianshu.com/p/434020d4bd2f" target="_blank" rel="noopener">https://www.jianshu.com/p/434020d4bd2f</a>)<br>  Batchnorm是深度网络中经常用到的加速神经网络训练，加速收敛速度及稳定性的算法，可以说是目前深度网络必不可少的一部分。<br>  Batchnorm主要解决的问题<br>  Batchnorm原理解读<br>  Batchnorm的优点<br>  Batchnorm的源码解读<br>  BN是一个非常有效的正则化方法，可以让大型卷积网络的训练速度加快很多倍，同时收敛后的分类准确率也可以得到大幅提升。BN在用于神经网络某层时，会对每一个mini-batch数据的内部进行标准化处理，使输出规范化到N(0,1)的正态分布，减少了内部神经元分布的改变（Internal Covariate Shift）。BN论文指出，传统的深度神经网络在训练时，每一层的输入分布都在变化，导致训练变得困难，我们只能使用一个很小的学习率来解决这个问题。而对每一层使用BN之后，我们就可以有效的解决这个问题。</p>
+<p>6.你知道有哪些优化范数？<br>7.为什么xgboost效果不如随机森林？<br>  Boosting是一种常用的统计学习方法，在训练过程中，通过改变训练样本的权重，学习多个分类器，最终获得最优分类器。在每一轮训练结束之后，降低被正确分类的训练样本权重，增大分类错误的样本权重，多次训练之后，一些被错误分类的训练样本会获得更多关注，而正确的训练样本权重趋近于0，得到多个简单的分类器，通过对这些分类器进行组合，得到一个最终模型。<br>  xgBoosting在传统Boosting的基础上，利用cpu的多线程，引入正则化项，加入剪枝，控制了模型的复杂度。<br>  与GBDT相比，xgBoosting有以下进步：<br>  1）GBDT以传统CART作为基分类器，而xgBoosting支持线性分类器，相当于引入L1和L2正则化项的逻辑回归（分类问题）和线性回归（回归问题）；<br>  2）GBDT在优化时只用到一阶导数，xgBoosting对代价函数做了二阶Talor展开，引入了一阶导数和二阶导数；<br>  3）当样本存在缺失值是，xgBoosting能自动学习分裂方向；<br>  4）xgBoosting借鉴RF的做法，支持列抽样，这样不仅能防止过拟合，还能降低计算；<br>  5）xgBoosting的代价函数引入正则化项，控制了模型的复杂度，正则化项包含全部叶子节点的个数，每个叶子节点输出的score的L2模的平方和。从贝叶斯方差角度考虑，正则项降低了模型的方差，防止模型过拟合；<br>  6）xgBoosting在每次迭代之后，为叶子结点分配学习速率，降低每棵树的权重，减少每棵树的影响，为后面提供更好的学习空间；<br>  7）xgBoosting工具支持并行,但并不是tree粒度上的，而是特征粒度，决策树最耗时的步骤是对特征的值排序，xgBoosting在迭代之前，先进行预排序，存为block结构，每次迭代，重复使用该结构，降低了模型的计算；block结构也为模型提供了并行可能，在进行结点的分裂时，计算每个特征的增益，选增益最大的特征进行下一步分裂，那么各个特征的增益可以开多线程进行；<br>  8）可并行的近似直方图算法，树结点在进行分裂时，需要计算每个节点的增益，若数据量较大，对所有节点的特征进行排序，遍历的得到最优分割点，这种贪心法异常耗时，这时引进近似直方图算法，用于生成高效的分割点，即用分裂后的某种值减去分裂前的某种值，获得增益，为了限制树的增长，引入阈值，当增益大于阈值时，进行分裂；<br>8.什么是CART?<br>9.什么是RF？<br>  主要运用到的方法是bagging，采用Bootstrap的随机有放回的抽样，抽样出N份数据集，训练出N个决策树。然后根据N个决策树输出的结果决定最终结果（离散型的输出：取最多的类别，连续型的输出：取平均数），是一种集成学习。<br>  下面引用的是谢益辉博士关于Bootstrap （和 Jackknife）基本思想的论述<br>  一般情况下，总体永远都无法知道，我们能利用的只有样本，现在的问题是，样本该怎样利用呢？Bootstrap的奥义也就是：既然样本是抽出来的，那我何不从样本中再抽样（Resample）？<br>  Jackknife的奥义在于：既然样本是抽出来的，那我在作估计、推断的时候“扔掉”几个样本点看看效果如何？既然人们要质疑估计的稳定性，那么我们就用样本的样本去证明吧。<br>  随机森林的优势：<br>    容易理解和解释<br>    不需要太多的数据预处理工作<br>    隐含地创造了多个联合特征，并能够解决非线性问题<br>    随机森林模型不容易过拟合<br>    自带out-of-bag (oob)错误评估功能<br>    并行化容易实现<br>  随机森林的劣势：<br>    不适合小样本，只适合大样本<br>    精度较低<br>    适合决策边界是矩形的，不适合对角线型的<br>10.什么是GBDT？<br>   gbdt全称梯度下降树，在传统机器学习算法里面是对真实分布拟合的最好的几种算法之一，在前几年深度学习还没有大行其道之前，gbdt在各种竞赛是大放异彩。<br>   原因大概有几个，<br>   一是效果确实挺不错。<br>   二是即可以用于分类也可以用于回归。<br>   三是可以筛选特征。<br>   这三点实在是太吸引人了，导致在面试的时候大家也非常喜欢问这个算法。<br>   gbdt的面试考核点，大致有下面几个:<br>   gbdt 的算法的流程？<br>   gbdt 如何选择特征 ？<br>   gbdt 如何构建特征 ？<br>   gbdt 如何用于分类？<br>   gbdt 通过什么方式减少误差 ？<br>   gbdt的效果相比于传统的LR，SVM效果为什么好一些 ？<br>   gbdt 如何加速训练？<br>   gbdt的参数有哪些，如何调参 ？<br>   gbdt 实战当中遇到的一些问题 ？<br>   gbdt的优缺点 ？<br>   通过采用加法模型（即基函数的线性组合），以及不断减小训练过程产生的残差来达到将数据分类或者回归的算法。通过多轮迭代,每轮迭代产生一个弱分类器，每个分类器在上一轮分类器的残差基础上进行训练。对弱分类器的要求一般是足够简单，并且是低方差和高偏差的。一般选择cart tree且树的深度不会很深。<br>   GBDT一些调参的方式：<br>    树的个数 100<del>10000<br>    叶子的深度 3</del>8<br>    学习速率 0.01<del>1<br>    叶子上最大节点树 20<br>    训练采样比例 0.5</del>1<br>    训练特征采样比例 (n−−√n)<br>   GBDT的优势：<br>    精度高<br>    能处理非线性数据<br>    能处理多特征类型<br>    适合低维稠密数据<br>    模型可解释性好<br>    不需要做特征的归一化，可以自动选择特征<br>    能适应多种损失函数<br>  GBDT的劣势：<br>    不太适合并发执行<br>    计算复杂度高<br>    不适用高维稀疏特征<br>  RF和GBDT的比较<br>    相同点：<br>        都是由多棵树组成<br>        最终的结果都是由多棵树一起决定<br>    不同点：<br>        组成随机森林的树可以是分类树，也可以是回归树；而GBDT只由回归树组成<br>        组成随机森林的树可以并行生成；而GBDT只能是串行生成<br>        对于最终的输出结果而言，随机森林采用多数投票等；而GBDT则是将所有结果累加起来，或者加权累加起来<br>        随机森林对异常值不敏感，GBDT对异常值非常敏感<br>        随机森林对训练集一视同仁，GBDT是基于权值的弱分类器的集成<br>        随机森林是通过减少模型方差提高性能，GBDT是通过减少模型偏差提高性能<br>  XgBoost：<br>    简单来说xgBoost是GBDT的一种高效实现，主要具有以下几个优势<br>    显式的把树模型复杂度作为正则项加到优化目标中。<br>    公式推导中用到了二阶导数，用了二阶泰勒展开。<br>    实现了分裂点寻找近似算法。<br>    可以并行执行<br>  1.xgboost在代价函数里加入了正则项，用于控制模型的复杂度。正则项里包含了树的叶子节点个数、每个叶子节点上输出的score的L2模的平方和。从Bias-variance tradeoff角度来讲，正则项降低了模型variance，使学习出来的模型更加简单，防止过拟合.</p>
+<p>  2.传统GBDT在优化时只用到一阶导数信息，xgboost则对代价函数进行了二阶泰勒展开，同时用到了一阶和二阶导数。顺便提一下，xgboost工具支持自定义代价函数，只要函数可一阶和二阶求导。 —对损失函数做了改进（泰勒展开，一阶信息g和二阶信息h）</p>
+<p>  3.split finding algorithms(划分点查找算法)：<br>    3.1 exact greedy algorithm—贪心算法获取最优切分点<br>    3.2 approximate algorithm— 近似算法，提出了候选分割点概念，先通过直方图算法获得候选分割点的分布情况，然后根据候选分割点将连续的特征信息映射到不同的buckets中，并统计汇总信息。<br>    3.3 Weighted Quantile Sketch—分布式加权直方图算法<br>    这里的算法 3.2，3.3 是为了解决数据无法一次载入内存或者在分布式情况下算法 3.1 效率低的问题<br>  4.xgboost工具支持并行。xgboost的并行不是tree粒度的并行，xgboost也是一次迭代完才能进行下一次迭代的。xgboost的并行是在特征粒度上的。xgboost在训练之前，预先对数据进行了排序，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量。这个block结构也使得并行成为了可能，在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行。<br>11.什么是模型方差和偏差？(<a href="https://blog.csdn.net/qq_41951186/article/details/82534050" target="_blank" rel="noopener">https://blog.csdn.net/qq_41951186/article/details/82534050</a>)<br>  generalization error又可以细分为Bias和Variance两个部分。而bias和variance分别从两个方面来描述了我们学习到的模型与真实模型之间的差距。<br>  偏差度量了学习算法的期望预测与真实结果的偏离程度，即刻画了算法本身的拟合能力。<br>  方差度量了同样大小的训练集的变动所导致的学习性能变化，即刻画了数据扰动所造成的影响。<br>  噪声则表达了在当前任务上任何学习算法所能达到的期望泛化误差的下界，即刻画了学习问题本身的难度。<br>  Bias:偏差描述的是根据样本拟合出的模型的预测结果与样本真实结果的差距，就是预测结果与真实结果的误差。Low Bias,就是增加模型的参数，复杂化模型，但容易过拟合overfiting，对于图中high variance,点分散。<br>  Variance:方差描述的是根据样本训练出来的模型在测试集上的表现。low variance 减少模型参数，简化模型，但容易欠拟合，对应于图纸high bias,点偏离中心。<br>  针对偏差和方差的思路：<br>    偏差：实际上也可以称为避免欠拟合。<br>        1、寻找更好的特征 – 具有代表性。<br>        2、用更多的特征 – 增大输入向量的维度。（增加模型复杂度）<br>    方差：避免过拟合<br>        1、增大数据集合 – 使用更多的数据，噪声点比减少（减少数据扰动所造成的影响（紧扣定义））<br>        2、减少数据特征 – 减少数据维度，高维空间密度小（减少模型复杂度）<br>        3、正则化方法<br>        4、交叉验证法<br>12.深度学习的优化方法总结(<a href="https://www.cnblogs.com/earendil/p/8915657.html" target="_blank" rel="noopener">https://www.cnblogs.com/earendil/p/8915657.html</a>)</p>
+<p>13.长度为n的数组里放了n+1个大小在[1,n]的数，必然至少有一个重复的数，找出来。<br>14.设计一个循环有序链表，实现增删改查四个函数</p>
+<ol start="15">
+<li>dropout相当于模型集成，能够降低模型的方差。<br>dropout断开网络的一些连接，相当于对特征进行稀疏化处理，类似于L1正则化。<br>dropout进行随机的断开连接，相当于加入了噪声干扰，来防止过拟合。</li>
+</ol>
+<p>16.白化是对数据的特征空间进行归一化，以消除数据特征空间的不一致性问题。<br>    Batch normalization是对网络隐含层的输入进行归一化，以消除网络参数更新的不稳定性，加快网络收敛。<br>    在深度神经网络中，相对于下一层的，当前隐含层其实就是输入层，也就是对每一个隐含层进行归一化。<br>    Batch normalization将隐含层的输入强行将接近激活函数饱和区的值拉入正态分布，以避免梯度消失的问题。<br>    Batch normalization强行对输入进行归一化，其实也就相当于一种正则化手段。<br>    Batch normalization减轻了参数初始化、学习率的选择以及正则化参数选择的依赖。</p>
+<p>18.说一下deeplab。它与其他state of art的模型对比<br>19.CRF后处理的目的<br>20.什么是BN<br>21.多标签分类怎么解决，从损失函数角度考虑<br>22.image caption项目：文本特征用什么提的？提前提好的还是和图像一起训？<br>23.代码：链表反转<br>24.deeplab的亮点是什么<br>25.你认为deeplab还可以做哪些改进？<br>26.代码：连续子数组的最大和。<br>27.一个正整数组成的数组，分成连续的M段，问每段的数之和的最大值最小是多少？</p>
+<p>例如：a=[10,6,2,7,3],M=2,答案为16，两段分为[10,6][2,7,3]。<br>28.Adaboost和XGboost的区别<br>29.浏览器中的联想词运用了什么理论和原理？<br>30.LR和SVM的区别以及高斯核为什么有效？<br>31.LR为什么要离散特征？（这个是我之前没有碰到过的题目，只能自己答了，答的是离散化是为了对离群点更鲁棒）<br>32.问了一道动态规划算法题，很容易<br>33.Python的字典实现？进程线程？红黑树介绍？<br>34.求二叉树节点间的最长距离（不一定过根节点）。被面试官看着写真的很有压力，我那时候连二叉树深度都不会求，剑指才刚起步QAQ。磕磕碰碰写了个暴力穷举的，在此感谢小哥的耐心指导，之后面试手撕代码是必须的，所以赶紧刷起来吧。<br>35.基本功。但我没写过=-=，所以说自己是真的菜，该会的要会啊，比如排序和二叉树的各种遍历方法。<br>36.给了个网页，也是实时的，让写了LR，softmax的损失函数和推导，这些公式自己最好草稿纸上先过一遍。<br>37.手写求平方根函数：常规做法是二分查找，也可以用梯度下降来做。可惜我没写过，又是磕磕碰碰，至此对自己的代码能力深恶痛绝！<br>38.之后再写了半小时代码：二叉树的非递归中序遍历和翻转数组的翻转点（剑指原题），遍历写法卡了，运行调试了挺久，这种题其实是要做到烂熟于胸的。<br>39.算法题说思路：2Sum，nlogn复杂度；这就Leetcode第一题，送分的。<br>40.xgboost和gdbt怎么做回归和分类的？有什么区别？常规操作，但是要回答好还是不容易，要下点功夫看懂<br>41.SVM推导会吗？会啊，这就是基本功了，说到拉格朗日因子，对偶性求导的时候喊停了，表示说个大概就行。然后又问了核函数，调参之类。<br>42.当面写代码：给定一个长字符串和短字符串，长字符串中删除短字符串，返回。（aabbcdefg - ae = abbcdfg）大致就是个字符串操作，直接在原字符串上遍历一遍就行<br>43.SVM推导？核函数？惩罚系数？关于SVM花点时间吃透，不算难。随机森林？决策树？</p>
+<p>44.口述算法题：一个数组，把奇数放左边，偶数放右边。设leftindex 和rightindex–，遍历一遍完成交换。 然后再问：实现开三次根，类似平方根，一样用二分法或者梯度下降来做。<br>   class Solution:<br>    def reOrderArray(self, array):<br>        # write code here<br>        ans=[]<br>        for i in range(0,len(array)):<br>            if array[i]%2==1:<br>                ans.append(array[i])<br>        for i in range(0,len(array)):<br>            if array[i]%2==0:<br>                ans.append(array[i])<br>        return ans</p>
+<p>45.<br>    1. 先上机，一小时3个题，有点慌。先看第一题，输入两个数a,b 输出这两个数的和。黑人问问问？小心，这种题往往有陷阱，我先跑了一遍代码，AC了……emmm，海康还是很友好的<br>    2. 第二个题是爬楼梯，n层走，一次1层或者一次2层，问多少种走法。斐波那契数列，快乐。有个大数取模操作，0x7FFFFFFF<br>      f(n) = f(n-1) + f(n-2)<br>    3. 第三题，求一个数组的最长递增子序列长度，如 10 9 2 5 3 7 101 18，子序列 2 3 7 101，输出4。经典问题，动态规划来做，不过我之前没刷到过，好在上个月刷了不少题，这个题也拿下了。<br>        class Solution:<br>            def lengthOfLIS(self, nums: List[int]) -&gt; int:<br>                if not nums: return 0<br>                dp = [1] * len(nums)<br>                for i in range(len(nums)):<br>                    for j in range(i):<br>                        if nums[j] &lt; nums[i]: # 如果要求非严格递增，将此行 ‘&lt;’ 改为 ‘&lt;=’ 即可。<br>                            dp[i] = max(dp[i], dp[j] + 1)<br>                return max(dp)<br>46.机器学习和深度学习有什么区别？<br> 机器学习是人工智能的一个子集，为机器<br>47.为什么朴素贝叶斯被称为“朴素”<br>48.详细谈谈朴素贝叶斯分类器？<br>49.为什么随机森林能降低方差？<br> 随机森林的预测输出值是多棵决策树的均值，如果有n个独立同分布的随机变量x，它们的方差都为，则他们的均值的方差为1/n<br>50.<br>对于带等式和不等式约束的优化问题，KKT条件是取值极值的充分条件还是必要条件？对于SVM呢？<br> 对于一个一般问题，KKT条件是取得极值的必要条件而不是充分条件。对于凸优化问题，则是充分条件，SVM是凸优化问题。<br>解释维数灾难的概念<br> 当特征向量数理很少时，增加特征，可以提高算法的精度，但当特征向量的维数增加到一定数量之后，在增加特征，算法的精度反而会下降。<br>Logistic 回归为什么用交叉熵而不用欧式距离做损失函数？<br>  如果用欧式距离，不是凸函数，而用交叉熵则是凸函数。<br>解释GBDT的核心思想<br>  用加法模拟，更准确的说，是多棵决策树来拟合一个目标函数。每一颗决策树拟合的是之前迭代得到的模型的残差，求解的时候，对目标函数使用了一阶泰勒展开，用梯度下降法来训练决策树。<br>解释XGboost的核心思想<br>  在GBDT的基础上，目标函数增加了正则化项，并且在求解时做了二阶泰勒展开。<br>什么是反卷积？<br>  反卷积也称为转置卷积，如果用矩阵乘法实现卷积操作，将卷积核平铺为矩阵，则转置卷积在正向<br>反卷积有哪些用途？<br>  实现上采样，近似重构输入图像，卷积层可视化</p>
+<p>PCA优化的目标是什么？<br>  最小化重构误差/最大化投影后的方差<br> LDA(线性判别分析)优化的目标是什么<br>   最大化类间差异与类内差异的比值<br>解释神经网络的万能逼近定理<br>  只要激活函数选择得当，神经元的数理足够，至少有一个隐含层的神经网络可以逼近闭区间上任意一个连续函数到任意指定的精度。<br>softmax回归训练时的目标函数是凸函数吗？<br>  是，但有不止一个全局最优解<br>SVM为什么要求解对偶问题？为什么对偶问题与原问题等价？<br>  原问题不容易求解，含有大量的不易处理的不等式约束。原问题满足Slater条件，强对偶成立，因此原问题与对偶问题等价。</p>
+<p>60.朴素贝叶斯为什么成为朴素？<br>  朴素贝叶斯中的“朴素”二字突出了这个算法的简易性。朴素贝叶斯的简易性表现该算法基于一个很朴素的假设：所有的变量都是相互独立的，假设各特征之间相互独立，各特征属性是条件独立的。</p>
+<p>SVM博客<br> <a href="http://www.blogjava.net/zhenandaci/archive/2009/02/13/254519.html" target="_blank" rel="noopener">http://www.blogjava.net/zhenandaci/archive/2009/02/13/254519.html</a></p>
+<p>机器学习的定义:<br>  机器学习正是这样的一门学科，人的“经验”对应计算机中的“数据”，让计算机来学习这些经验数据，生成一个算法模型，在面对新的情况中，计算机便能作出有效的判断，这便是机器学习。</p>
+<p>模型的评估与选择<br> 我们将学习器对样本的实际预测结果与样本的真实值之间的差异成为：误差（error）</p>
+<p>学习能力过强，以至于把训练样本所包含的不太一般的特性都学到了，称为：过拟合（overfitting）。<br>学习能太差，训练样本的一般性质尚未学好，称为：欠拟合（underfitting）。<br>可以得知：在过拟合问题中，训练误差十分小，但测试误差教大；在欠拟合问题中，训练误差和测试误差都比较大。目前，欠拟合问题比较容易克服，例如增加迭代次数等，但过拟合问题还没有十分好的解决方案，过拟合是机器学习面临的关键障碍。</p>
+<p>正如天下没有免费的午餐，查准率和查全率是一对矛盾的度量。例如我们想让推送的内容尽可能用户全都感兴趣，那只能推送我们把握高的内容，这样就漏掉了一些用户感兴趣的内容，查全率就低了；如果想让用户感兴趣的内容都被推送，那只有将所有内容都推送上，宁可错杀一千，不可放过一个，这样查准率就很低了。</p>
+<p>P-R曲线如何评估呢？若一个学习器A的P-R曲线被另一个学习器B的P-R曲线完全包住，则称：B的性能优于A。若A和B的曲线发生了交叉，则谁的曲线下的面积大，谁的性能更优。但一般来说，曲线下的面积是很难进行估算的，所以衍生出了“平衡点”（Break-Event Point，简称BEP），即当P=R时的取值，平衡点的取值越高，性能更优。</p>
+<p>树模型与LR的区别，各自优缺点？<br>    差别:<br>     1.树模型是非线性模型，LR是线性模型。<br>     2.LR需要对特征scaling，树模型不用。<br>     3.LR对异常值敏感，树模型不敏感因为只是判断大小不是使用绝对值进行大小比较。<br>     4.基于算法原理，LR对数据整体把握好，树模型对局部把握好。<br>    使用:<br>     1.特征特别多且稀疏的时候使用LR比较好因为可以省时间，节省计算量。<br>     2.LR对于分类特征无能为力。<br>     3.树模型解释性比较好。<br>有哪些对数据的基本处理方式？<br>    1.异常数据的剔除<br>      具体要看使用的模型，对不同模型影响不一样<br>    2.数据的缺失值处理<br>      可以缺失值填充，可以删除<br>    3.定类数据的独热编码处理<br>      如果数据特征维度太高可以考虑哈希编码<br>    4.连续数据的离散化处理<br>      类别区间更重要<br>    5.连续数据的scaling<br>      使用GD优化算法的需要这边<br>    6.连续数据的分布变换<br>       box-cox，log变换之类<br>    7.日期型数据处理<br>       提取关键特征<br>    8.文本数据的正则化提取<br>对Naive bayes进行解释<br>    贝叶斯公式 + 条件独立+ 平滑，常用的平滑是拉普拉斯平滑，在nlp中词频统计的时候伯努利模型和多项式模型的平滑方式不同。<br>xgboost的并行化体现在哪?xgboost的多分类如何做？xgboost的近似算法怎么做的？<br>    1.并行化体现在特征并行化<br>    2.xgboost多分类使用one or rest方法<br>    3.近似算法体现在特征值提取上，使用了近似直方图算法生成候选的分割点<br>xgboost有哪些参数会影响模型的复杂度？影响是怎么样？<br>    1.eta，学习率，越大越容易过拟合<br>    2.max_depth,树深度，越大越容易过拟合<br>    3.min_child_weight, 越大越容易过拟合<br>    4.max_leaf_nodes,越大越容易过拟合<br>    5.gamma，分裂损失最小值，越大越容易欠拟合<br>    6.alpha，L1正则化系数，越大越容易欠拟合<br>    7.lambda，L2正则化系数，越大越容易欠拟合<br>什么是overfiting underfiting？如何判断？怎么缓解？<br>    overfiting 指的是在训练集效果极好，在测试集上效果一般，underfiting指的是在训练集测试集上效果都不好<br>    可以通过模型的评估指标在训练集测试集上的表现，对过拟合欠拟合进行判断<br>    欠拟合缓解方法:<br>       增加可用特征<br>       使用更加复杂的模型<br>       减少正则化系数<br>    过拟合的缓解方法:<br>        1.增加数据<br>        2.增加正则化系数<br>        3.调节模型参数，使之更加简单<br>        4.对于树模型可以对叶节点、树深度、节点分类最小值，shrinkage等进行调节<br>        5.对数据进行随机采样提高随机性。<br>        6.对于深度学习：可以对数据进行一系列变换平移旋转调节锐化等等增加样本，</p>
+<p>Kmeans算法中的k的确定？kmeans的优缺点？<br>  一般指以下几种方法：<br>     1.手肘法，计算SSE<br>     2.轮廓法<br>     3.Gap statistics，越大越好<br>  算法优点:<br>     1.算法简单<br>     2.只需要调k<br>  算法缺点:<br>     1.结果受初始值影响不稳定，解决方法多次初始取最优，kmeans++<br>     2.受异常点影响大，可以使用k-medias算法<br>     3.数据如果不是凸集效果较差，因为假设数据服从正在分布，是GMM模型的特殊形式。<br>SVM算法原始问题转化为对偶问题值得是什么？ 为什么需要将原始问题转化为对偶问题？什么场景下使用？<br>    1.原始问题指的是先对拉格朗日乘子求最大值在对w和b求最小值，对偶问题求解顺序是相反的。<br>    2.原始问题的算法复杂度是与特征维度相关的，对偶问题的算法复杂度是与样本维度相关的，其实可以不转化，之所以要转换是因为特征维度比样本维度要高。<br>    3.转化为对偶问题的使用场景一般都是非线性分类，如：使用高斯核函数将特征映射到无穷维。一般来说使用线性核进行分类解决原始问题即可。</p>
+<p>L1/L2正则化之间的差别？以及原因？（<a href="https://blog.csdn.net/zouxy09/article/details/24971995）" target="_blank" rel="noopener">https://blog.csdn.net/zouxy09/article/details/24971995）</a><br>    L1和L2正则都是比较常见和常用的正则化项，都可以达到防止过拟合的效果。L1正则化的解具有稀疏性，可用于特征选择。L2正则化的解都比较小，抗扰动能力强。<br>    L1正则化具有截断效应，L2正则化具有缩放效应，换句话说L1正则化具有特征选择的作用。<br>    可以从两个方面来解释:<br>      1.L1和L2分别是求有约束条件下的函数损失函数的最优值，L1的约束条件是正方形，当取得最优值时与坐标轴的相交的概率较大，L2约束条件是圆形，损失函数取得最优值与坐标轴相交的概率较低。<br>      2.从贝叶斯的角度来解释，L1正则化相当于对参数加了一个拉普拉斯分布的先验，L2相当于对参数加了一个高斯分布的先验，拉普拉斯分布的特点就是在参数为0出的概率密度极大而高斯分布特点是参数在0处的概率密度都极大，而高斯分布的特点是参数在0附近的概率密度都很大，因此L1更容易使得参数变为0。<br>svm对缺失点和异常点是否敏感？<br>  对缺失值敏感，没有树模型那种处理缺失值的能力，对异常点不敏感，因为决策边界只取决于支持向量。<br>DT模型中ID3，C4.5,CART之间的差异？<br>  ID3使用的树分支准则则是信息增益，C4.5是在此基础上进行改进使用信息增益率，是为了防止选到某些熵比较大的属性，CRAT使用的标准是基尼指数，ID3和C4.5算法分支的时候都是多叉树，CART是二叉树。<br>  CRAT除了分类还可以处理回归问题，对于连续值处理的时候，可以以某属性相临值之间的均值作为分支条件。<br>树模型对于缺失值如何处理？<br>  RF<br>   首先，给缺失值预设一些估计值，比如数值型特征，选择其余数据的中位数或众数作为当前的估计值。然后，根据估计的数值，建立随机森林，把所有的数据放进随机森林里面跑一遍。记录每一组数据在决策树中一步一步分类的路径。<br>   然后来判断哪组数据和缺失数据路径最相似，引入一个相似度矩阵，来记录数据之间的相似度，比如有N组数据，相似度矩阵大小就是N<em>N，如果缺失值是类别变量，通过权重投票得到新估计值，如果是数值型变量，通过加权平均得到新的估计值，如此迭代，直到得到稳定的估计值。<br>  xgboost<br>   xgboost 把缺失值当做稀疏矩阵来对待，本身的在节点分裂时不考虑的缺失值的数值。缺失值数据会被分到左子树和右子树分别计层损失选择较优的那一个。如果训练中没有数据缺失，预测时出现了数据缺失，那么默认被分到右子树。<br>RF与boosting之间差别？GBDT和xgboost之间差别？<br>  RF是一种以决策树为基模型的bagging算法，RF通过对样本以及特征采样构建数据集，在利用DT进行集成，是一种天然的并行模型。<br>  boosting是一种串行集成方法，主要的思想是通过每一次增加一个基学习器来减少集成模型与预测值之间的误差，代表模型包括Adaboost，GBDT以及xgboost，Adaboost是通过对样本点的权值调整达到训练多个模型的目的。<br>tf idf<br>贝叶斯与朴素贝叶斯<br>马尔科夫隐马尔可夫<br>7.L1和L2<br>transformer<br>那么如果我们采用传统的像LSTM这样的序列模型来进行翻译呢？由于LSTM模型是单向的(前向或者后向)，显然它无法同时考虑到it的上下文信息，这会造成翻译的错误。以前向LSTM为例，当翻译it时，能考虑的信息只有The animal didn’t cross the street because，而无法考虑was too tired，这使得模型无法确定it到底指代的是street还是animal。当然我们可以采用多层的LSTM结构，但这种结构并非像Self-Attention一样是真正意义上的双向，而是通过拼接前向LSTM和后向LSTM的输出实现的，这会使得模型的复杂度会远远高于Self-Attention。<br>Self-Attention的优势不仅仅在于对词语进行编码时能充分考虑到词语上下文中的所有信息，还在于这种机制能够实现模型训练过程中的并行，这使得模型的训练时间能够较传统的序列模型大大缩短。传统的序列模型由于t tt时刻的状态会受到t</em>1 t-1t*1时刻状态的影响，所以在训练的过程中是无法实现并行的，只能串行。而Self-Attention模型中，整个操作可以通过矩阵运算很容易的实现并行。</p>
+<p>头条面试：<br>XGBOOST ，LGB，GBDT 的区别<br>一阶优化器，二阶优化器<br>Attention怎么做，self-attention怎么做<br>Transformer细节，Bert细节（多头和缩放）<br>过拟合怎么解决<br>标签平滑怎么做的<br>交叉熵，相对熵<br>Bagging, boosting , 偏差，方差关系<br>CRF理论与代码实现细节<br>CRF与HMM关系，区别<br>维特比，beam-search 时间复杂度，区别<br>「编程题」：编辑距离，完全二叉树的节点个数 （都是很经典的leetcode原题）<br>2面: 60分钟<br>实习，竞赛，问了30分钟<br>开源代码阅读情况<br>XGBOOST ，LGB 生长策略，分类策略<br>BERT细节<br>少样本情况怎么缓解<br>「编程题」：15分钟 写一个k-means，没写完时间不够</p>
+<ol>
+<li>语言模型在nlp有哪些应用？<br>单独来看，语言模型可被用于文本或语音生成，譬如：<br>生成新的文章标题。<br>生成新的句子、段落或文档。<br>生成建议的句子延续。</li>
+<li>说出Bert模型的创新点和优势<br>1、双向预训练语言表征，</li>
+<li>使用Transformer encoder作为语言模型和新的预训练对象：Masked语言模型（MLM）。</li>
+<li>引进了Next sentence prediction任务去集成文本对预训练表征</li>
+<li>证明了预训练模型能够极大减轻任务级别的工程师的架构设计工作，并且在十一类NLP任务中获取了state-of-the-art的成绩。<br>本质上没有什么创新，是一个集巨人之优势的产物，指出的Masked 语言模型和Next Sentence Prediction</li>
+<li>seq2seq模型适合哪些类型的任务？<br>适用于长度不确定的时候采用的模型，一般用于机器翻译任务中。人机对话，聊天机器人。</li>
+<li>词向量有哪些训练方法？<br>Word2Vector:<br>Glove<br>FastText<br>基于FastText进行文本分类</li>
+<li>简述如何训练一个命名实体识别模型<br>NER模型训练步骤：<br>命名实体识别总结</li>
+<li>对于中文，常做的中文预处理任务有哪些？<br>去除指定无用的符号<br>让文本只保留汉字<br>对文本进行jieba分词<br>去除停用词<br>将文本转为tfidf向量并输入到算法中</li>
+<li>列出3种以上文本分类算法，简单说明原理。<br>NB/LR/SVM/LSTM(GRU)/CNN<br>文本分类算法比较与总结<br>对向量化的输入去做建模①NB/LR/SVM…建模</li>
+</ol>
+<ul>
+<li>可以接受特别高维度的稀疏表示<br>②MLP/CNN/LSTM</li>
+<li>不适合稀疏高维度数据输入 =&gt; word2vec</li>
+</ul>
+<p>1.评估指标，1阶，二阶<br>查准率/查全率/F1 ROC/AUC<br>2.逻辑回归的损失函数推导，为啥不用MSE作为损失函数<br></p>
+<p>2.实现参数的稀疏有什么好处？<br>　　因为参数的稀疏，在一定程度上实现了特征的选择。一般而言，大部分特征对模型是没有贡献的。这些没有用的特征虽然可以减少训练集上的误差，但是对测试集的样本，反而会产生干扰。稀疏参数的引入，可以将那些无用的特征的权重置为0.<br>3.L1范数和L2范数为什么可以避免过拟合？<br>　　加入正则化项就是在原来目标函数的基础上加入了约束。当目标函数的等高线和L1,L2范数函数第一次相交时，得到最优解。<br>　　L1范数：<br>　　L1范数符合拉普拉斯分布，是不完全可微的。表现在图像上会有很多角出现。这些角和目标函数的接触机会远大于其他部分。就会造成最优值出现在坐标轴上，因此就会导致某一维的权重为0 ，产生稀疏权重矩阵，进而防止过拟合。<br>　　L2范数：<br>　　L2范数符合高斯分布，是完全可微的。和L1相比，图像上的棱角被圆滑了很多。一般最优值不会在坐标轴上出现。在最小化正则项时，可以是参数不断趋向于0.最后活的很小的参数。</p>
+<ol>
+<li>NLP工程师的职责和工作内容<br>注：以下五个问题难度递增</li>
+</ol>
+<p>分类问题：文本分类、情感分析（二分类和多分类）；<br>匹配问题：检索与某句话类似的话，或者与它相关的回答。如kaggle的quora question pairs比赛；<br>翻译问题：文本翻译；<br>结构化预测：将一段文本转化为结构化的输出序列，如将文本中的词进行词性标注，语法树生成；<br>人机对话：建模为马尔科夫决策过程，当前要采取的动作和上一个状态和动作有关，代表性的系统是多轮人机对话系统，如何根据当前用户的话和最近的上下文信息进行回复。（PNN、人机对话）</p>
+<ol start="2">
+<li>NLP工程师的技能树<br>机器学习常用算法（必须）：<br>深度学习（必须）：搞清楚原理，如RNN及其变种<br>词向量表示方式：one-hot、Bow、n-gram、TF-IDF、word2vec、sentence2vector<br>文本分析：包括分词tokenize、停用词stopwords、关键词提取、意图识别、词性标注POS-Taging（标注名词、动词、形容词等）、命名实体识别named entity rocignition（标注人名、地名、时间、机构名等）、依存句法分析（找主谓宾，构造依赖树）。可以参考jieba，NLTK，gensim<br>多轮对话：如何实现？<br>首先对用户的输入进行分类（专业话题or闲聊话题），根据分类结果不同匹配不同的库，然后向用户返回不同的结果，根据MDP实现多轮对话，见rasa项目<br>知识图谱：用于搜索、闲聊</li>
+<li>NLP面试常见问题<br>机器学习问题<br>LR、SVM（推导及原理）、树模型（xgboost推导及原理）、集成学习（原理和区别）<br>深度学习（重点）<br>CNN、RNN、LSTM、GRU、过拟合、dropout原理、梯度消失梯度爆炸、BN、SGD、Adam<br>其他（重点）<br>word2vec：两种训练方式（skip-gram和cbow）（重点）</li>
+</ol>
+<p>为什么用哈夫曼树做优化<br> 1.在word2vec中，利用哈夫曼树来模拟隐层到输出层的学习过程。word2vec对这个模型做了改进，首先，对于从输入层到隐藏层的映射，没有采取神经网络的线性变换加激活函数的方法，而是采用简单的对所有输入词向量求和并取平均的方法<br>　2.下面我们用一个具体的例子来说明霍夫曼树建立的过程，我们有(a,b,c,d,e,f)共6个节点，节点的权值分布是(20,4,8,6,16,3)。<br>　首先是最小的b和f合并，得到的新树根节点权重是7.此时森林里5棵树，根节点权重分别是20,8,6,16,7。此时根节点权重最小的6,7合并，得到新子树，依次类推，最终得到下面的霍夫曼树。<br><br>　　那么霍夫曼树有什么好处呢？一般得到霍夫曼树后我们会对叶子节点进行霍夫曼编码，由于权重高的叶子节点越靠近根节点，而权重低的叶子节点会远离根节点，这样我们的高权重节点编码值较短，而低权重值编码值较长。这保证的树的带权路径最短，也符合我们的信息论，即我们希望越常用的词拥有更短的编码。如何编码呢？一般对于一个霍夫曼树的节点（根节点除外），可以约定左子树编码为0，右子树编码为1.如上图，则可以得到c的编码是00。<br>　　在word2vec中，约定编码方式和上面的例子相反，即约定左子树编码为1，右子树编码为0，同时约定左子树的权重不小于右子树的权重。<br>关键词提取<br>一篇文档的关键词等同于最能表达文档主旨的N个词语，即对于文档来说最重要的词，因此，可以将文本关键词抽取问题转化为词语重要性排序问题，选取排名前TopN个词语作为文本关键词。采用TF-IDF方法、TextRank方法和Word2Vec词聚类方法<br>1）基于统计的关键词提取方法<br>该方法根据统计信息，如词频，来计算得到文档中词语的权重，按权重值排序提取关键词。TF-IDF和TextRank均属于此类方法，其中TF-IDF方法通过计算单文本词频（Term Frequency， TF）和逆文本频率指数（Inverse Document Frequency， IDF）得到词语权重；TextRank方法基于PageRank的思想，通过词语共现窗口构建共现网络，计算词语得分。此类方法简单易行，适用性较强，然而未考虑词序问题。<br>TextRank的文本关键词抽取是利用局部词汇关系，即共现窗口，对候选关键词进行排序。在PageRank算法的思路上做了改进。该算法把文本拆分成词汇作为网络节点，组成词汇网络图模型，将词语间的相似关系看成是一种推荐或投票关系，使其可以计算每一个词语的重要性。<br>2）基于机器学习的Word2Vec词聚类关键词提取方法<br>Word2Vec词聚类文本关键词抽取方法的主要思路是对于用词向量表示的文本词语，通过K-Means算法对文章中的词进行聚类，选择聚类中心作为文章的一个主要关键词，计算其他词与聚类中心的距离即相似度，选择topN个距离聚类中心最近的词作为文本关键词，而这个词间相似度可用Word2Vec生成的向量计算得到。常见的方法有欧式距离和曼哈顿距离，本文采用的是欧式距离。<br>TextRank起源与PageRank（<a href="https://www.jianshu.com/p/ffaee5708866）" target="_blank" rel="noopener">https://www.jianshu.com/p/ffaee5708866）</a><br>LDA （用于关键词提取）</p>
+<p>关系匹配<br>余弦相似度（用于文本匹配，精确度较高）<br>自然语言处理中，常采用余弦相似度进行文档相似性度量手段，假定A和B是两个n维文档向量，A为 [A1, A2, …, An] ，B为[B1, B2, …, Bn] ，则A与B的余弦相似度等于：<br></p>
+<p>找出两篇文章相似度的方法。<br>（1）用IF-IDF找出两篇文章的关键词；<br>　（2）每篇文章各取出若干个关键词，合并成一个集合，计算每篇文章对于这个集合中的词的词频<br>　（3）生成两篇文章各自的词频向量；<br>　（4）计算两个向量的余弦相似度，值越大就表示越相似。<br>句子A：(1，1，2，1，1，1，0，0，0)<br>和句子B：(1，1，1，0，1，1，1，1，1)的向量余弦值来确定两个句子的相似度。<br>计算过程如下：</p>
+<p><br>句子A和B相似。</p>
+<p>simhash（更加适合于文本比较长的匹配）<br>找出两篇文章相似度算法的方法：<br>一种方案是先将两篇文章分别进行分词，得到一系列特征向量，然后计算特征向量之间的距离（可以计算它们之间的欧氏距离、海明距离或者夹角余弦等等），从而通过距离的大小来判断两篇文章的相似度。<br>另外一种方案是传统hash，我们考虑为每一个web文档通过hash的方式生成一个指纹（finger print）。<br>下面，我们来分析下这两种方法。<br>采取第一种方法，若是只比较两篇文章的相似性还好，但如果是海量数据呢，有着数以百万甚至亿万的网页，要求你计算这些网页的相似度。你还会去计算任意两个网页之间的距离或夹角余弦么？想必你不会了。<br>而第二种方案中所说的传统加密方式md5，其设计的目的是为了让整个分布尽可能地均匀，但如果输入内容一旦出现哪怕轻微的变化，hash值就会发生很大的变化<br>simhash作为locality sensitive hash（局部敏感哈希）的一种，用于亿万级网页相似度判断<br>其主要思想是降维，将高维的特征向量映射成低维的特征向量，通过两个向量的Hamming Distance来确定文章是否重复或者高度近似。<br>其中，Hamming Distance，又称汉明距离，在信息论中，两个等长字符串之间的汉明距离是两个字符串对应位置的不同字符的个数。也就是说，它就是将一个字符串变换成另外一个字符串所需要替换的字符个数。例如：1011101 与 1001001 之间的汉明距离是 2。至于我们常说的字符串编辑距离则是一般形式的汉明距离。<br>汉明距离在3以内为相似度相近。<br>simhash算法分为5个步骤：分词、hash、加权、合并、降维<br>elasticsearch（搜索引擎数据库，可以加快搜索匹配过程）<br>TF-IDF,OKapi BM25,Lucene相关性算法</p>
+<p>BM25<br>TF-IDF算法是一个可用的算法，但并不太完美。它给出了一个基于统计学的相关分数算法，而BM25算法则是在此之上做出改进之后的算法。（为什么要改进呢？TF-IDF不完美的地方在哪里？）<br>当两篇描述“人工智能”的文档A和B，其中A出现“人工智能”100次，B出现“人工智能”200次。两篇文章的单词数量都是10000，那么按照TF-IDF算法，A的tf得分是：0.01，B的tf得分是0.02。得分上B比A多了一倍，但是两篇文章都是再说人工智能，tf分数不应该相差这么多。可见单纯统计的tf算法在文本内容多的时候是不可靠的<br>多篇文档内容的长度长短不同，对tf算法的结果也影响很大，所以需要将文本的长度也考虑到算法当中去<br><br>当系统数据量上了10亿、100亿条的时候。<br>文本相似<br>NLP语义相似度的计算模型可以分为传统的计算模型和基于神经网络的计算模型两大类：<br>一、传统的计算模型：<br>主要是以TF-IDF,BM25,simhash等为代表的计算模型，他们的共同特点是不借助神经网络，而是利用传统的统计词频，和相似度计算公式实现；<br>二、基于神经网络的计算模型：<br>由于传统的文本相似性如 BM25，无法有效发现语义类 query-Doc 结果对，如”从北京到上海的机票”与”携程网”的相似性、”快递软件”与”菜鸟裹裹”的相似性。<br>在排序时，一些细微的语言变化往往带来巨大的语义变化，如”小宝宝生病怎么办”和”狗宝宝生病怎么办”、”深度学习”和”学习深度”。<br>而使用LSA类模型进行语义匹配，效果也不是很好。<br>DSSM（Deep Structured Semantic Models）为计算语义相似度提供了一种思路。<br>1）DSSM:<br>DSSM（Deep Structured Semantic Models）的原理很简单，通过搜索引擎里 Query 和 Title 的海量的点击曝光日志，用 DNN 把 Query 和 Title 表达为低纬语义向量，并通过 cosine 距离来计算两个语义向量的距离，最终训练出语义相似度模型。该模型既可以用来预测两个句子的语义相似度，又可以获得某句子的低纬语义向量表达。<br>DSSM 从下往上可以分为三层结构：输入层、表示层、匹配层</p>
+<p><br>1.1 输入层<br>输入层做的事情是把句子映射到一个向量空间里并输入到 DNN 中，这里英文和中文的处理方式有很大的不同。<br>（1）英文<br>英文的输入层处理方式是通过word hashing。举个例子，假设用 letter-trigams 来切分单词（3 个字母为一组，#表示开始和结束符），boy 这个单词会被切为 #-b-o, b-o-y, o-y-#<br><br>这样做的好处有两个：首先是压缩空间，50 万个词的 one-hot 向量空间可以通过 letter-trigram 压缩为一个 3 万维的向量空间。其次是增强范化能力，三个字母的表达往往能代表英文中的前缀和后缀，而前缀后缀往往具有通用的语义。<br>这里之所以用 3 个字母的切分粒度，是综合考虑了向量空间和单词冲突：<br><br>以 50 万个单词的词库为例，2 个字母的切分粒度的单词冲突为 1192（冲突的定义：至少有两个单词的 letter-bigram 向量完全相同），而 3 个字母的单词冲突降为 22 效果很好，且转化后的向量空间 3 万维不是很大，综合考虑选择 3 个字母的切分粒度。<br>（2）中文<br>中文的输入层处理方式与英文有很大不同，首先中文分词是个让所有 NLP 从业者头疼的事情，即便业界号称能做到 95%左右的分词准确性，但分词结果极为不可控，往往会在分词阶段引入误差。所以这里我们不分词，而是仿照英文的处理方式，对应到中文的最小粒度就是单字了。（曾经有人用偏旁部首切的，感兴趣的朋友可以试试）<br>由于常用的单字为 1.5 万左右，而常用的双字大约到百万级别了，所以这里出于向量空间的考虑，采用字向量（one-hot）作为输入，向量空间约为 1.5 万维。<br>2.2 表示层<br>DSSM 的表示层采用 BOW（Bag of words）的方式，相当于把字向量的位置信息抛弃了，整个句子里的词都放在一个袋子里了，不分先后顺序。当然这样做会有问题，我们先为 CNN-DSSM 和 LSTM-DSSM 埋下一个伏笔。<br>紧接着是一个含有多个隐层的 DNN，如下图所示：<br><br>用 Wi 表示第 i 层的权值矩阵，bi 表示第 i 层的 bias 项。则第一隐层向量 l1（300 维），第 i 个隐层向量 li（300 维），输出向量 y（128 维）可以分别表示为：<br><br>用 tanh 作为隐层和输出层的激活函数：<br><br>最终输出一个 128 维的低纬语义向量。<br>2.3 匹配层<br>Query 和 Doc 的语义相似性可以用这两个语义向量(128 维) 的 cosine 距离来表示：<br><br>通过softmax 函数可以把Query 与正样本 Doc 的语义相似性转化为一个后验概率：<br><br>其中 r 为 softmax 的平滑因子，D 为 Query 下的正样本，D-为 Query 下的负样本（采取随机负采样），D 为 Query 下的整个样本空间。<br>在训练阶段，通过极大似然估计，我们最小化损失函数：<br><br>残差会在表示层的 DNN 中反向传播，最终通过随机梯度下降（SGD）使模型收敛，得到各网络层的参数{Wi,bi}。<br>2.4 优缺点<br>优点：DSSM 用字向量作为输入既可以减少切词的依赖，又可以提高模型的范化能力，因为每个汉字所能表达的语义是可以复用的。另一方面，传统的输入层是用 Embedding 的方式（如 Word2Vec 的词向量）或者主题模型的方式（如 LDA 的主题向量）来直接做词的映射，再把各个词的向量累加或者拼接起来，由于 Word2Vec 和 LDA 都是无监督的训练，这样会给整个模型引入误差，DSSM 采用统一的有监督训练，不需要在中间过程做无监督模型的映射，因此精准度会比较高。<br>缺点：上文提到 DSSM 采用词袋模型（BOW），因此丧失了语序信息和上下文信息。另一方面，DSSM 采用弱监督、端到端的模型，预测结果不可控。<br>CDSSM:一定程度上可以弥补DSSM丢失上下文的问题，结构上讲DSSM的DNN替换成CNN<br>DSSM-LSTM:既然记录句子上下文，无疑LSTM是最擅长的，因此用LSTM来构造的DSSM模型<br>MV-DSSM：多视角DSSM，在原始的query和Doc中有两类Embedding,同时DNN里面所有的权重是共享的，而MV-LSTM可以训练两类以上的的数据，而且里面的深度学习模型参数是相互独立的，<br>基于MV-LSTM的参数变多了，由于多视角的训练，输入的语聊也变得不同，自由度也更大，而随之带来的问题就是训练会变得越来越困难。<br>深度文本匹配发展总结<br>1、单语义模型 DSSM<br>2、多语义模型 MV-LSTM<br>3、匹配矩阵模型 Text Matching as Image Recognition<br>4、深层次的句间交互模型 BI-BPM DIN DRCN<br>nlp中文本相似度计算问题<br>NLP面试题目汇总1-5<br>关系抽取综述<br>基于规则的方法<br>is-a<br>基于监督学习的方法<br>可以把关系抽取看成多分类问题，每一种关系都是一种类别，通过标签数据的学习构建一种分类器(classifer)即可，主要难点有两点：<br>2.1 特征构建<br>传统的机器学习方法通过NLP技术构建组合特征，比如词性标注，句法依存分析<br><br>2.2 标签数据的获取<br>监督学习的效果取决于训练集的数据的大小和质量，但是获取大量标注数据的代价非常昂贵，怎么解决这个问题？我们可以通过远程监督，从已有数据获取大量标签数据。<br>半监督和无监督学习学习方法（semi-supervised &amp; unsupervised）<br>基于种子的启发式算法（Bootstrap方法）<br>1.原始方法<br>2.SnowBall方法<br>step1：生成规则<br>step2: parteen reprezentation<br>    step3: caculater simulation<br>算法思路，先准备一些准确率很高的种子实体三元组，例如(Jacke Ma,Alibaba,Founder-of)<br>1.以这些种子实例为基础去语料库找出所有相关的句子<br>2.对于句子的上下文进行分析，找出可靠的pattern<br>3.然后通过这些pattern发现更多的实例<br>4.通过新的实例再去发掘更多的pattern，如此往复，直至收敛，整个过程就像滚雪球，越滚越大。</p>
+<p>远程监督方法<br>远程监督学习其实跟上面的思想很类似，它基于一个最核心的假设[1]：<br>If two entities participate in a relation, all sentences that mention these two entities express that relation.<br>此外，它与bootstrapping 最大的区别是：Hearst在1992年提出的方法只进行基于规则的模式匹配，而Mintz的文章，通过远程监督学习获取了大量的标签数据之后，使用传统机器学习的方法进行训练分类器。<br>这个模型虽然看上去很完美，却存在以下两个显著的缺点：</p>
+<ol>
+<li><p>在某些情况下，假设[1]有可能不成立，也因此会出现很多错误标签。这个很好理解，比如有以下两段话：<br>Steve Jobs was the co-founder and CEO of Apple and formerly Pixar.Steve Jobs passed away the day before Apple unveiled iPhone4S in late 2011.<br>我们本来打算抽取的关系是Founder-of，但是很明显，第二句表达的并不是这个意思，因此出现了标签错误。</p>
+</li>
+<li><p>基于手动的特征工程效率不高Mintz的文章，在获得标签数据后，会根据句子出现的频率构建一组特征，然后去训练一个分类器。这些特征大多是基于NLP技术的，比如词性标注，句法解析等。我们知道这些NLP技术还不是特别完美，会出现大量错误，而这些错误会在关系抽取系统累积传播，从而影响最终的分类效果。<br>使用无向图模型去预测实体之间的关系以及哪个句子表达了这个关系<br>摒弃了手工特征工程，使用卷积神经网络来自动提取特征，提升了效果。<br>PCNN论文</p>
+</li>
+<li><p>使用multi-instance learning来缓解远程监督学习标签错误的问题</p>
+</li>
+<li><p>提出了分段CNN的概念（Piecewise Convolutional Neural Networks），进一步提升了特征提取的效果<br>引入attention机制，解决了[Riedel et al. 2010]和PCNN [Zeng et al.,2015]中信息利用不充分的问题（只用一个instance来代表一个relation）<br>引入selective attention机制，缓解了远程监督学习中标签错误的问题</p>
+</li>
+</ol>
+<p>知识图谱关系抽取：<br>实体消歧、实体统一、指代消解、句法分析、CKY算法<br>抽取实体<br>1.person、location、time<br>抽取关系<br>locationed in 、work at、is part of<br>实体消歧(Entity Disambugration)：<br>然后当我们拿到Text时，比如“今天苹果发布了新的手机”<br>我们可以将实体库中的实体描述，全部转换为向量，基于上下文的词向量方法(tf-idf)。<br>例如:<br>“美国一家高科技公司，经典的产品有Iphone手机”转换为向量V1<br>“水果的一种，一般产自于…”转换为向量V2</p>
+<p>然后将“今天苹果发布了新的手机”中“苹果”的上下文“今天，发布了新的手机”转换为向量Vt<br>我们只要将Vt分别与V1和V2计算相似度，然后对比sim(Vt,V1)和sim(Vt,v2)<br>相似度高的，我们则将其看作“苹果”的真实语义。<br>实体统一(Entity Resolution)：<br>1.概念：同一个实体有不同的表达方式，有时候需要把不同的表达方式统一为同一种表达方式。</p>
+<p>例子：”中华人民共和国“，”中国“都表示同一个意思。如果把实体统一，可以减少一些NLP任务的难度。常见的应用场景是在构建知识图谱中，需要对地名，公司名，专业术语等进行统一。<br>给定两个字符串str1，str2字符串<br>第一种特征：sim（str1,str2）基于Edit Distant方法<br>第二种特征：百度有限公司，百度科技有限公司 基于规则<br>实体描述库包含各种有关公司的描述。<br>第三种特征：给予图的实体统一。<br>Va(age,salary,job,,,,3,s1,s2,s3)<br>   个体特征   关系特征<br>问题：给定两个实体，判断是否指向同一个含义？</p>
+<p>方法：假设现在我们要判断一些公司名是否表示同一个公司。那么需要预先定义一些规则，比如可以把”XX有限公司“中的”有限公司“去除，可以把”XX公司“中的”公司“去除等等。有了这些规则后，我们就可以把公司名进行规则处理，相当于英文里stemming的操作，将名称转化为原型，这样我们就可以得知两种表达方式是否是指向同一个含义。</p>
+<p>指代消解(co-reference Resolution)：</p>
+<p>句法分析<br>句法树-&gt;提取最短路径<br>知识抽取-实体及关系抽取<br>基于深度学习的关系抽取综述<br>介绍了深度学习的关系抽取概述和演变过程。<br>知识抽取-实体及关系抽取<br>知识抽取-事件抽取<br>问答系统<br>自动问答系统一般包括三个主要组成部分：问题分析、信息检索和答案抽取。本文分别介绍 了这三个主要组成部分的主要功能和常用的方法。最后还介绍了自动问答系统的评价问题。<br>问答系统一般包括三个主要部分：问题分析、信息检索和答案抽取<br><br>问题分析<br>问题分类<br>对不同类型的问题，往往有不同的处理方法，所以不论是英文自动问答系统还是中文自 动问答系统一般都有问题分类这个过程<br><br>关键词提取<br>我们需要在用户提问的问题中，提取出对后面检索系统有用的关键字。并不是在问题中 的每个词都可以提取出来作为检索系统的关键词<br>关键词扩展<br>为了提高检索系统的召回率，一般的问答系统都对关键词进行扩展。<br>所以这些问答系统都对关键词的扩 展添加了很多限制条件，比如只对名词的关键词进行扩展。可用 Wordnet 或者其他的同义词 词典来扩展关键词。还有一些问答系统通过统计的办法来扩展关键词。这种方法需要大量的 问题和答案语料来进行训练。</p>
+<p>信息检索模块（核心）<br>信息检索的任务就是用前面提取出来的关键字到文档库中查找相关的文档。信息检索模 块返回的是一些最相关的文档。<br>要建立一个信息检索模块，需要对文档库建立索引。这样才能快速地找到包含特定关键词的文档。在建立索引之前，有必要对语料进行预处理，比如去除重复的文档，如果是英文 的语料需要进行词根操作（Stemming），如果是汉语语料则需要分词。如果是汉语的语料库， 还需要进行分词处理。 信息检索模块中的关键是对文档权重的确定和对文档进行排序。<br>一般信息检索模块返回的都是文档，但是应用于问答系统的信息检索模块返回的可以是文档，也可以是段落，甚至还可以是句子。信息检索模块返回的相关文档中，一般只有文档 中一小部分才是问题的答案。</p>
+<p>答案抽取<br>一般搜索引擎返回的是一堆网页，而问答系统需要返回的是简短的答案。这样，通过信息检索模块搜索出来的相关文档就要提交给答案抽取模块来提炼答案。答案可以是一句话， 或者是几句话，也可以是几个词或者短语<br>1 以句子作为答案<br>（1） 把检索出来的文档分成句子<br>（2） 按照一定的算法，计算每个句子的权重<br>（3） 对句子按照权重进行排序<br>（4） 根据问题的类型对候选答案重新排序<br>2 以词或短语作为答案<br>3 以文摘作为答案<br><br>基于结构化的问答系统<br>主要思路是通过分析问题，把问题转化为一个query（查询），然后在结构化数据中进行查询，返回的查询结果即为问题的答案，从其基本思想可知，这种方法只能用于限定领域。</p>
+<ol>
+<li>根据问题特点来分析，产生一个结构数据查询语言格式的查询</li>
+<li>讲产生的query提交给数据库，系统根据查询的限定条件筛选数据</li>
+<li>把查询的答案返回给用户（由于数据库属于精准匹配，抽取的动作不明显）<br><br>基于自由文本的问答系统<br>属于开放域问答系统，它只能回答那些答案存在于这个文档集合中的问题，<br><br>问题分析主要包括问句分类和问句主题<br>信息检索包括文档检索和段落检索<br>信息检索的目的是缩小答案的范围，进一步提高答案抽取的效率和准确性，分为<br>文档检索，检索出可能包含答案的文档，包括减缩模型的选取和query的生成<br>段落检索，从候选文档检索出可能包含答案的段落。实验证明基于密度的算法可以获得比较好的效果</li>
+<li>MultiText算法</li>
+<li>IBM算法</li>
+<li>SiteQ算法<br>基于密度的只考虑独立关键词和位置信息，没有考虑关键词在问句中的先后顺序，也没有考虑语法和语义信息，基于模糊依赖关系匹配算法，将问题和答案解析成语法树，并且从中得到词与词之间的语法关系，然后通过关系匹配的依赖程度进行排序，实验结果表明，这种方法的效果好于关系匹配算法<br>富信息索引<br>传统的信息索引只需要处理关键字，而问答系统需要处理更多的语法，语义信息，因此部分问答系统把语法语义也添加到索引中，丰富了传统的索引，以提高检索效率。<br>答案抽取<br>分成</li>
+<li>生成候选答案集合<br>通过文具分析，获取问句类别，目前问答系统能够处理的一般是基于事实类型的问题，大多数问题类型对应的答案比较短，可能是实体名如人名，地名等，可能是抽象名词如人类，学科，树木，也可能是数字如距离，速度等。对于这类问题可以找到相应的词，词语或者片段来回答。</li>
+<li>提取答案<br>得到候选答案的集合后有四种方法获得问句的最佳答案，‘</li>
+<li>基于表层特征的答案提取</li>
+<li>通过关系抽取答案</li>
+<li>通过模式匹配抽取答案</li>
+<li>利用统计模型抽取答案<br>基于问题答案对的问答系统（常见问题（FAQ）,社区问答(CAQ))<br><br>问题分析</li>
+<li>问题主客观判断</li>
+<li>问题的紧急性<br>信息检索<br>研究适合问题答案对的减缩模型和两个问题的相似性判断是最关键的俩两个问题。通过信息检索部分把相关的问题检索出来，然后在答案抽取部分抽取合适的答案。<br>也可以从相似性来考虑问题，首先把给定的问题相似问题找到，然后再在相似问题中寻找最好的答案。<br>答案抽取<br>由于问题答案对已经有答案了，因此答案抽取部分最重要的工作是判断答案的质量。研究从众多的答案中选择一个最好的。</li>
+</ol>
+<p>召回+精排方法<br>多通道召回（tfidf bm25）<br>textRank关键词召回<br>word2vec wwm召回<br>问题相似的匹配，匹配多了或者少了怎么处理？<br>先召回，然后bm25或者cqr做相似度计算，直接召回不准的话把招准做好。<br>召回 倒排索引<br>多通道召回取前5条进行人工标记<br>看看前五条哪些是相似语义一致的，哪些是相似语义不一致的<br>对话系统(ChatBox)<br>1、问答型<br>即单轮对话系统，要 想做一个还可用的问答系统，就要针对某个具体场景去解决相应的问答需求，要做通用的自动问答系统，还是很困难的。问答系统的另一个应用就是客服系统，即使用机器来辅助人回答高频经常被问到的问题，提高客服人员的效率。<br>1.1、基于语义分析的方法<br>该方法的思路就是来一个 Query 之后首先语义分析出逻辑表达式，然后根据 这个逻辑表达式去知识库中推理查询出答案。既使用知识图谱解决。这个方法的重点就在于语义分析。<br>1.2、基于信息抽取的方法<br>首先是问题的各种分析，包括抽取关键词、关系词、焦点词以及问题的各种分类信息，然后从海量文档中检索出可能包含答案的文档段落，再在证据库中找到相关的证据支撑， 最后根据许多模型对结果排序找到最终的答案。<br>1.3、端对端的方法<br>这种方法是基于深度学习的模型，它首先将问题表征成一个向量(这个过程缺省略了问题分析步骤)，然后将答案也表征成向量，最后计算这 两个向量的关联度，值越高那么就越可能是答案 。 它的核心就是在表征答案的时候如何把候选知识(无结构化段落或者结构化子图〉表征进来。</p>
+<p>然而一个真正的问答系统一般都是根据要解决的问题融合多种方法来处理。<br>2、任务型<br>任务型对话系统更多的是完成一些任务，比如订机票、订餐等等。这类任务有个较明显的特点，就是需要用户提供 一 些明显的信息( slot， 槽位)， 如订机票就需要和用户交互得到出发地、目的地和出发时间等槽位， 然后有 可能还要和用户确认等等，最后帮用户完成一件事情。<br>系统会根据当前状态 Cstate)和相应的动作( action)来决定下一步的状态和反馈，即求状态转移概率P(r,s’|s,a)，这其实就是马尔科夫决策 过程 的思想 CMDP)。 首先是 得到用户的 Query。 然后是自然语言理解模块(NaturalLanguageUnderstanding），主要是槽位识别和意图识别，而且这时候识别的意图有可能是有多个的，对应的槽位也会不 同，都会有个置信度 。 然后就是对话管理模块，它包括 Dialog State Tracking (DST) 和 Dialog Policy。 DST 就是根据之前的 信息得到它的 state, state 其实就是 slot 的信息 :得到了多少 slot，还差什么 slot，以及它 们的得分等等。 Dialog Policy 就是根据 state 做出 一个决策，叫 action，如 还需要什么 slot，是否要确认等等。最后就是自然语言生成模块(Natural Language Generation)，把相应的 action 生成一句话回复给用户。 Dialog Policy就是根据 state做一个决策，只要有了 state，就比较容易了，所以 DST 就比较关键。目前 DST 主要有这么几种方法 。<br>2.1、生成式模型( Generative Model )<br>2.2、判别式模型( Discrimitive Model )<br>2.3、规则系统<br>规则系统其实很好理解了，也是一种很可控的方法。对话管理主要有两个关键因素: state和 action。我们知道 NLU模块会分析出句子意图和相关 slot，意图和 slot都是有置信度的，那么 state 其实就是意图和 slot, action就是根据 state 的一些回复。 对于某一个具体任务来说，需要询问的slot其实是可以预先知道的，那么缺哪些 slot 就询问哪些 slot就可以了，不确定的slot和意图就和用户进行确认。对置信度低的不确定的进行确认并影响到之后相似的情况其实就是强化学习的思想了 。 当然还有一些细节需要考虑到系统里面，如对 slot 的范围限定、 slot和slot之间的冲突 ，以及用户有意捣乱的情况等等。举个例子，对于订机票任务， 用户回复出发时间的时候，这个时间不能是当前时间之前的时间，否则就要和用户进一步确认:出发地点和到达地点也不能是同一个地点，否则也要确认。<br>所以规则系统就是有一个配置文件，写一些规则，然后线上把意图和 slot 的相关宇段传过来进行解析处理就可以了<br>3、闲聊型<br>闲聊型对话系统主要有 3 种方法:规则方法、生成模型和检索方法。<br>3.1、规则方法<br>规则系统关键是如何写一堆规则和线上的快速匹配。目前没有哪个系统是纯规则的了，规则方法顶多只是在 一些其他方法处理不好的情况下的一个补充 。<br>3.2、生成模型<br>生成模型是随着深度学习的热潮而提出的比较火热的方向。举例：可以首先使用一个RNN模型把输入句子“ ABC”表示成一个向量 ，然后把这个向量作为另一个RNN模型的输入，最后使用语言模型生成目标句子“ WXYZ”。 这种方法的优点是省去了中间的模块，缺点是生成的大多是泛泛的无意义的回复、前后回复不一致 ，或者有句子不通顺的问题( 一句话不通顺其实都很难解决) 。好多人也在融合上下文、 Topic、互信息等来解决多样性问题，但遗憾的是，只使用这种方法效果并不尽人意( 而且非常依赖于大量高质量的训练语料)，它可以结合其他模型和策略来处理。<br>3.3、检索方法<br>检索方法的思想是，如果机器要给人回复一句话 ，假设这句话或相似的话之前有人说过，只需要把它找出来就可以了。这种方法就需要事先挖掘很多的语料。它最基本的流程就是首先进行 NLU， 然后从语料库中召回一些可能的回复，最后使用更精细和丰富的模型(语义相似度、上下文模型等 )找出最合适的回复给用户，期间一定要注意处理“答非所问”的现象。 语义相似度的技术前面也介绍过了。对话还少不了这几个核心技术 :意图识别、上下文模型、个性化模型和自学习。意图识别其实是语言量化的问题，目前是通过分类、聚类、语义相似度和模板等多个技术来解 决。上下文模型就需要省略补全，把缺失的信息补全了，那其实就是单轮对话了 ，否则就要结合上下文的 Topic 和 Keyword 来处理，主要的宗旨就 是不能语义跑偏了。个性化模型不光要考虑用户画像，还要考虑场景(时间、 地点等) 。 </p>
+<p>检索式模型：<br>一个预先定义问答集包含很多回答，还有一些根据输入的问句和上下文(context)，以及用于挑选出合适的回答的启发式规则，这些启发式规则可能是简单的基于规则的匹配，或者是相对复杂的机器学习分类器的集成，基于检索式的回答不会产生文字，只是从预先定义的回答集中挑选出一个合适的回答。<br>缺点是：1.无法处理没见过的问题2.无法追溯上下文中的实体。</p>
+<p>产生式模型：<br>不依赖预先定义的回答集，它会产生一个新的回答，经典的产生式模型是机器翻译技术，只不过它是讲一种语言翻译成另外一种语言，而是将问句翻译成’回答’。<br>长对话模型和短对话模型<br>开放话题<br>封闭话题：目标驱动，致力于解决特定领域的问题，因此可能的询问和回答的数量相对有限。<br>挑战：<br>1.结合上下文<br>2.个性化信息一致<br>3.模型的评估标准<br>4.回答的意图和多样性<br>面向任务的系统旨在帮助用户完成实际具体的任务，例如帮助用户找寻商品，预订酒店餐厅等。<br>面向任务的系统的广泛应用的方法是将对话响应视为一条管道（pipeline)，如下图所示：<br><br>系统首先理解人类所传达的信息，将其作为一种内部状态，然后根据对话状态的策略采取一系列相应的行为，最后将动作转化为自然语言的表现形式。<br>虽然语言理解是通过统计模型来处理的，但是大多数已经部署的对话系统仍然使用手工的特性或手工制定的规则，用于状态和动作空间表示、意图检测和插槽填充。</p>
+<p>非任务导向<br>非任务导向的对话系统与人类交互，提供合理的回复和娱乐消遣功能，通常情况下主要集中在开放的领域与人交谈。虽然非任务导向的系统似乎在进行聊天，但是它在许多实际应用程序中都发挥了作用。<br>　　数据显示，在网上购物场景中，近80%的话语是聊天信息，处理这些问题的方式与用户体验密切相关。<br>　　一般来说，对于非任务导向型对话系统，目前用的主要是两种主要方法：<br>　　1)生成方法，例如序列到序列模型（seq2seq），在对话过程中产生合适的回复，生成型聊天机器人目前是研究界的一个热点，和检索型聊天机器人不同的是，它可以生成一种全新的回复，因此相对更为灵活，但它也有自身的缺点，比如有时候会出现语法错误，或者生成一些没有意义的回复；<br>　　2)基于检索的方法，从事先定义好的索引中进行搜索，学习从当前对话中选择回复。检索型方法的缺点在于它过于依赖数据质量，如果选用的数据质量欠佳，那就很有可能前功尽弃。</p>
+<p>A Survey on Dialogue Systems:Recent Advances and New Frontiers，这篇综述重点关注任务导向型对话系统。<br></p>
+<p>序列标注：分词，词性标注，命名实体识别<br>分类任务：文本分类，情感计算<br>句子关系判断：entailment（分类为蕴含或矛盾），相似度计算<br>生成式任务：机器翻译，问答系统，文本摘要</p>
+<p>序列标注任务的AI Studio：<a href="https://aistudio.baidu.com/aistudio/projectDetail/154048" target="_blank" rel="noopener">https://aistudio.baidu.com/aistudio/projectDetail/154048</a><br>如果有想使用ERNIE2.0的需求，可以关注EasyDL平台：<a href="https://ai.baidu.com/easydl/pro" target="_blank" rel="noopener">https://ai.baidu.com/easydl/pro</a>如果对开源NLP工具有需求，可以关注PaddleNLP开源官网：<a href="https://nlp.baidu.com/homepage/nlptools?type=industry" target="_blank" rel="noopener">https://nlp.baidu.com/homepage/nlptools?type=industry</a>ERNIE开源工具集，里面整合了ERNIE源码、蒸馏、微调等。可以关注ERNIE官网介绍：<a href="https://github.com/PaddlePaddle/ERNIE" target="_blank" rel="noopener">https://github.com/PaddlePaddle/ERNIE</a><br>对话情绪识别 AI Studio：<a href="https://aistudio.baidu.com/aistudio/projectdetail/121630" target="_blank" rel="noopener">https://aistudio.baidu.com/aistudio/projectdetail/121630</a><br>语义匹配的 AI studio代码链接 : <a href="https://aistudio.baidu.com/aistudio/projectDetail/125034" target="_blank" rel="noopener">https://aistudio.baidu.com/aistudio/projectDetail/125034</a><br>Bidirectional LSTM-CRF Models for Sequence Tagging阅读笔记<br>里面有LSTM思维导图笔记，介绍各种模型的特点和混合模型<br><a href="https://blog.csdn.net/u012485480/article/details/80425445" target="_blank" rel="noopener">https://blog.csdn.net/u012485480/article/details/80425445</a><br>深度学习NLP的各类模型及应用总结<br><a href="https://blog.csdn.net/huanghaocs/article/details/88932072" target="_blank" rel="noopener">https://blog.csdn.net/huanghaocs/article/details/88932072</a><br>文本关键词抽取算法总结<br>试图理解LSTM和RNN<br>Docker技术<br>Kubernetes入门<br>2018“达观杯”文本智能处理挑战赛心得<br>“达观杯”文本分类挑战赛Top10经验分享<br>2018“达观杯”文本智能处理挑战赛2018年”达观杯”文本智能处理挑战赛-长文本分类-rank4解决方案<br>2018年“达观杯”复盘——任务5<br>2018年NLP达观杯-复盘<br>2019 Datagrand ner 达观杯 整理<br>数据下载<br> 649453932/Chinese-Text-Classification-Pytorch<br>李宏毅 (Hung-yi Lee) ML&amp; DL<br>“神策杯”2018高校算法大师赛 第一名方案分享<br>第二&amp;三名代码方案(见github in my passport)<br>Word2Vec教程 - Skip-Gram模型<br>Word2Vec教程（2）- Negative Sampling<br>word2vec原理、推导与总结<br>用深度学习（CNN RNN Attention）解决大规模文本分类问题 - 综述和实践<br>文本分类：<br>一文学会最常见的10种NLP处理技术（附资源&amp;代码）<br>Bert:<br>较详细地解读Bert原文及简单的keras调用实现</p>
+<p>Python机器学习笔记：sklearn库的学习<br>非常全面的适合初学者sk-learn 入门教程<br>刷题地址：剑指offer<br>牛客网在线编程<br>code4interview<br>博客_python2.7</p>
+<p><br>CCF-BDCI互联网新闻情感分析(bert-base,线上0.79)<br>搜狗用户画像<br>从隐马尔科夫到条件随机场<br>ELMO<br>最好用的词向量，相比于word2vec具有：<br>（1）ELMo能够学习到词汇用法的复杂性，比如语法、语义。<br>（2）ELMo能够学习不同上下文情况下的词汇多义性。<br>与word2vec 和Glov最大的区别<br>即词向量不是一成不变的，而是根据上下文而随时变化，动态词向量<br>ELMo是双向语言模型biLM的多层表示的组合，基于大量文本，ELMo模型是从深层的双向语言模型（deep bidirectional language model）中的内部状态(internal state)学习而来的<br>Bert<br>1.深层双向的encoding<br>Masked LM<br>Encoder<br>在encoder的选择上，作者并没有用烂大街的bi-lstm，而是使用了可以做的更深、具有更好并行性的Transformer encoder来做。<br>NSP:<br>学习句子与句对关系表示<br>像之前说的，在很多任务中，仅仅靠encoding是不足以完成任务的（这个只是学到了一堆token级的特征），还需要捕捉一些句子级的模式，来完成SLI、QA、dialogue等需要句子表示、句间交互与匹配的任务。对此，BERT又引入了另一个极其重要却又极其轻量级的任务，来试图把这种模式也学习到。<br>句子级负采样<br>还记得小夕在前面word2vec章节说过的，word2vec的一个精髓是引入了一个优雅的负采样任务来学习词向量（word-level representation）嘛。那么如果我们把这个负采样的过程给generalize到sentence-level呢？这便是BERT学习sentence-level representation的关键啦。<br>BERT这里跟word2vec做法类似，不过构造的是一个句子级的分类任务。即首先给定的一个句子（相当于word2vec中给定context），它下一个句子即为正例（相当于word2vec中的正确词），随机采样一个句子作为负例（相当于word2vec中随机采样的词），然后在该sentence-level上来做二分类（即判断句子是当前句子的下一句还是噪声）。通过这个简单的句子级负采样任务，BERT就可以像word2vec学习词表示那样轻松学到句子表示啦。<br>句子级表示<br>所以最终BERT每个token的表示由token原始的词向量token embedding、前文提到的position embedding和这里的segment embedding三部分相加而成，如图：<br></p>
+<p>Seq2seq里的attention和Bert里的self-attention区别<br>attention分类：<br>soft hard<br>自注意力，非自注意力<br>local globle<br>CLS  a special classification token<br>天生就学习到句子级别的表征</p>
+<p>中文纠错<br>n-gram进行中文纠错<br>最小编辑距离<br>同义词识别：<br>句法分析<br>发现新词<br>文本聚类<br>海量长短文本的聚类，分类，文本相似计算模型开发<br>词法分析、句法分析、依存分析、文本分类聚类、信息检索、相似度计算<br>未登录词识别 主题抽取、语义分析、情感分析、知识图谱建设</p>
+<p>word2vec算法复现<br>使用Gensim模块训练词向量<br>Word2Vec Model</p>
+<hr>
+<p>对话系统<br>各类QA问答系统的总结与技术实现（持续更新）<br>基于知识图谱的智能问答<br>把知识变成图谱一共需要花几步？89页全网最全清华知识图谱报告<br>电影知识图谱问答系统项目总结<br>CCKS 2019 | 基于知识图谱的寿险问答系统<br>目前业界主流的智能问答系统搭建方法主要包括以下四种：检索式问答、生成式问答、阅读理解和知识图谱问答。<br>基于知识图谱的智能问答系统</p>
+<hr>
+<p>知识图谱<br><br></p>
+<p>1.目前状况的介绍，硕士毕业就一直在一家外企做嵌入式软件，二期学员，报班想转行到NLP，简历认可程度。<br>2.简历投递情况。被查看/面试情况7:1。目前的疫情相关？湖北人，还是简历不匹配？大公司和小公司。目前主要投递的是小公司，人数在200以下的。目前小公司招人比较少，比较谨慎。同时在刷题，为投递大公司做准备，简历方面自己写的，没找人看看。发现简历关pass了，怎么让的简历更收面试官的青睐。<br>3.薪资写多少目前写18-25，写多少合适，目前看到很多岗位都是20-40之间<br>4.简历帮忙看下，有什么建议和问题？<br>5.<br><br>通过百度搜索、Word 文件、PDF 文档或是其他类型的文献，抽取出非结构化的数据。<br>通过自然语言处理技术，使用命令实体识别的方式，来识别出文章中的实体，包括：地名、人名、以及机构名称等。<br>通过语义相似度的计算，确定两个实体或两段话之间的相似程度。<br>通过同义词构建、语义解析、依存分析等方式，来找到实体之间的特征关系。<br>通过诸如 TF-IDF 和向量来提取文本特征，通过触发事件、分词词性等予以表示。<br>通过 RDA（冗余分析）来进行主题的含义分析。<br>使用数据库或数据表进行数据存储。<br>针对所提取出来的文本、语义、内容等特征，通过知识本体的构建，实现实体之间的匹配，进而将它们存放到 Key-Value 类型的数据库中，以完成数据的映射和本体的融合。<br>当数据的体量过大时，使用 Hadoop 和 Spark 之类的分布式数据存储框架，再通过 NoSQL 的内容将数据存过去。</p>
+<p>Neo4j 从入门到构建一个简单知识图谱<br>Knowledge Graph 知识图谱<br>干货 | 知识图谱的技术与应用<br>neo4j的基础<br><a href="https://github.com/leondgarse/Atom_notebook/blob/master/public/2018/07-09_neo4j.md" target="_blank" rel="noopener">https://github.com/leondgarse/Atom_notebook/blob/master/public/2018/07-09_neo4j.md</a><br>PersonRelationKnowledgeGraph<br>实战：<br>基于电影知识图谱的智能问答系统（八） – 终极完结篇<br>迁移：<br>b站视频：<br>知识图谱实战教程-汽车类-教程的资料包<br><a href="https://github.com/qq547276542/Agriculture_KnowledgeGraph" target="_blank" rel="noopener">https://github.com/qq547276542/Agriculture_KnowledgeGraph</a><br>分析一套源代码的代码规范和风格并讨论如何改进优化代码<br>通用命名实体识别类别划分：<br>三大类：实体类，时间类，数字类<br>七小类：人名，机构名，地名，时间，日期，货币，百分比</p>
+<p>手写代码<br>1.快排算法<br>class Solution:<br>    def findKthLargest(self, nums: List[int], k: int) -&gt; int:<br>        def partition(left, right):<br>            pivot = nums[left]<br>            l = left + 1<br>            r = right<br>            while l &lt;= r:<br>                if nums[l] &lt; pivot and nums[r] &gt; pivot:<br>                    nums[l], nums[r] = nums[r], nums[l]<br>                if nums[l] &gt;= pivot:<br>                    l += 1<br>                if nums[r] &lt;= pivot:<br>                    r -= 1<br>            nums[r], nums[left] = nums[left], nums[r]<br>            return r<br>        left = 0<br>        right = len(nums) - 1<br>        while 1:<br>            idx = partition(left, right)<br>            if idx == k - 1:<br>                return nums[idx]<br>            if idx &lt; k - 1:<br>                left = idx + 1<br>            if idx &gt; k - 1:<br>                right = idx - 1<br>python 在线编程：<br>isalnum：字母数字<br>isalpha：字母<br>isdigit:数字</p>
+<p>面试可能会被问道的问题？<br>1.Flask是一个使用 Python 编写的轻量级 Web 应用框架<br>2.CNN,MLMA，AT_LSTM,HEAT,GCAE分别代表什么模型？</p>
+<p>MLMA:Multi-Label Multi-Attention Model:<br> 为每个主题(label)学习一个embedding，用label embedding来做attention，直接学习到和主题相关的词<br> 每个主题都有一个独立的attention过程，从而学习到各个label对应的句子表示，适合于多标签分类别<br>AT_LSTM:单层<br>HEAT:两层LSTM<br>GCAE:门控CNN<br><br>面试复盘：<br>平安金融：<br>1.简单介绍下项目：<br>2.CNN哪一层消耗内存最大，哪一层参数最多？<br>As is common with Convolutional Networks, notice that most of the memory (and also compute time) is used in the early CONV layers, and that most of the parameters are in the last FC layers.<br>3.bert特点有啥？<br>3.1.MLM.<br>3.2.NSP.<br>3.3.双向深层次encoder<br>4.你使用哪些python库？<br>sklern 、gensim、 keras4bert<br>5.你在项目中主要承担职责？<br>主要是承担项目的开发者，和项目进度管理。<br>6.为什么换工作？<br>不可抗拒力或者<br>原来的公司我做的还不错，同事和领导也都很认可我，但是上家公司，因为规模比较小，没有更大的发展空间，所以我想找一个更大的平台。<br>说上家公司给太少也没什么，毕竟大家都嗷嗷需要养家糊口<br>求发展的前提下希望改善物质条件是一个比较好的回复。<br>7.实体识别有那几大类？<br>三大类七小类：<br>实体、时间、数组类。<br>七小类：人名，机构名，地名，时间，日期，货币，百分比<br>简历准备</p>
+<p><br></p>
+<p></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/30/Bert-deploy-for-chinese-classification-task/" rel="next" title="Bert_deploy_for_chinese_classification_task">
+                <i class="fa fa-chevron-left"></i> Bert_deploy_for_chinese_classification_task
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">kbwzy</p>
+              <p class="site-description motion-element" itemprop="description">一个汽车工程师的转型之路</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Maching-learning-interview-Part-1"><span class="nav-number">1.</span> <span class="nav-text">Maching learning interview Part 1</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kbwzy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
